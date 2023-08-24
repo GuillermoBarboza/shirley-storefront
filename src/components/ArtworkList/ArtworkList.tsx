@@ -33,7 +33,7 @@ const ArtworkList: React.FC = () => {
   useEffect(() => {
     // Fetch artworks from the backend API
     axios
-      .get<Artwork[]>("http://localhost:3001/artworks")
+      .get<Artwork[]>("http://localhost:3009/artworks")
       .then((response) => {
         setArtworks(response.data);
       })
