@@ -1,5 +1,31 @@
 .App {
   text-align: center;
   background: rgb(167, 124, 68);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(125, 83, 28, 0.775);
+}
+
+.banner {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #33333376;
+  color: #fff;
+}
+
+.banner h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.banner p {
+  font-size: 1.5rem;
+  text-align: center;
 }
