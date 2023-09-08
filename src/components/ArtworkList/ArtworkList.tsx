@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./Artwork.module.css";
+import { url } from "inspector";
 
 interface Artwork {
   _id: string;
@@ -144,11 +145,13 @@ const ArtworkList: React.FC = () => {
                   Contact me on WhatsApp:
                   <a
                     className={styles.artworkItemContactLink}
-                    href={`https://wa.me/Numero de sHIRLEY`}
+                    href={`https://wa.me/+59892904603?text=Me%20interesa%20esta%20pintura%20${encodeURIComponent(
+                      artwork.url
+                    )} esta disponible?`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Numero de sHIRLEY
+                    Contácteme
                   </a>
                 </div>
                 {activeItem && (
