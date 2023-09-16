@@ -39,10 +39,12 @@ const Modal: React.FC<ModalProps> = ({ activeItem, handleCloseInfo }) => {
           {artist && <p className={Styles.artist}>Artista: {artist}</p>}
           {description && <p>Descripcion:{description}</p>}
           {coleccion && <p>Colleccion: {coleccion}</p>}
-          {styles.length >= 1 && <p>Estilos: {styles.join(", ")}</p>}
-          {size && <p>Tamaño: {size}</p>}
-          {price && <p>Precio: {price}UYU</p>}
-          {year && <p>Año: {year}</p>}
+          {styles.length > 0 && styles[0].length >= 3 && (
+            <p>Estilos: {styles.join(", ")}</p>
+          )}
+          {size > 0 && <p>Tamaño: {size}</p>}
+          {price > 0 && <p>Precio: {price}UYU</p>}
+          {year > 0 && <p>Año: {year}</p>}
           <p>{available ? "Aún disponible!" : "Vendida"}</p>
           <div className={styles.artworkItemContact}>
             Encuéntrame en WhatsApp: &nbsp;
