@@ -10,6 +10,17 @@
   background: rgba(125, 83, 28, 0.775);
 }
 
+footer {
+  background-color: #08070786;
+  color: #e8e6e6;
+  padding: 20px;
+}
+
+footer a {
+  color: #ffedd5;
+  text-decoration: underline;
+}
+
 .banner {
   height: 100vh;
   display: flex;

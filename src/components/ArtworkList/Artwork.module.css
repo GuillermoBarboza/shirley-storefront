@@ -26,10 +26,6 @@
   margin: auto;
 }
 
-.artworkItem.active img {
-  width: 60%;
-}
-
 .artworkItemContent {
   display: flex;
   flex-direction: column;
@@ -67,14 +63,5 @@
   .artworkListContainer ul {
     display: flex;
     flex-direction: column;
-  }
-
-  .artworkItem.active {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .artworkItem.active img {
-    width: 100%;
   }
 }

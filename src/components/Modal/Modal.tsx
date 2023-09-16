@@ -39,11 +39,24 @@ const Modal: React.FC<ModalProps> = ({ activeItem, handleCloseInfo }) => {
           {artist && <p className={Styles.artist}>Artista: {artist}</p>}
           {description && <p>Descripcion:{description}</p>}
           {coleccion && <p>Colleccion: {coleccion}</p>}
-          {styles && <p>Estilos: {styles}</p>}
+          {styles.length >= 1 && <p>Estilos: {styles.join(", ")}</p>}
           {size && <p>Tamaño: {size}</p>}
           {price && <p>Precio: {price}UYU</p>}
           {year && <p>Año: {year}</p>}
-          <p>{available}</p>
+          <p>{available ? "Aún disponible!" : "Vendida"}</p>
+          <div className={styles.artworkItemContact}>
+            Encuéntrame en WhatsApp: &nbsp;
+            <a
+              className={styles.artworkItemContactLink}
+              href={`https://wa.me/+59892904603?text=Me%20interesa%20esta%20pintura%20${encodeURIComponent(
+                url
+              )} esta disponible?`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              +598 92 904 603
+            </a>
+          </div>
         </div>
       </div>
     </div>
