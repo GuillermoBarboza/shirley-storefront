@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  MouseEvent,
+  MouseEventHandler,
+} from "react";
 import axios from "axios";
 import styles from "./Artwork.module.css";
-import { url } from "inspector";
-
+import Modal from "../Modal/Modal";
 interface Artwork {
   _id: string;
   title: string;
@@ -54,7 +58,10 @@ const ArtworkList: React.FC = () => {
     });
   }, [artworks]);
 
-  const handleItemClick = (artwork: Artwork) => {
+  const handleItemClick = (
+    event: MouseEvent<HTMLLIElement>,
+    artwork: Artwork
+  ): void => {
     setActiveItem(artwork);
   };
 
@@ -73,7 +80,9 @@ const ArtworkList: React.FC = () => {
               artwork === activeItem ? styles.active : ""
             }`}
             key={artwork._id}
-            onClick={() => handleItemClick(artwork)}
+            onClick={(e: MouseEvent<HTMLLIElement>) =>
+              handleItemClick(e, artwork)
+            }
           >
             <img src={artwork.url} alt={artwork.title} />
             {artwork === activeItem && (
@@ -155,12 +164,16 @@ const ArtworkList: React.FC = () => {
                   </a>
                 </div>
                 {activeItem && (
-                  <button
+                  /*  <button
                     className={styles.closeButton}
                     onClick={handleCloseInfo}
                   >
                     Close
-                  </button>
+                  </button> */
+                  <Modal
+                    activeItem={activeItem}
+                    handleCloseInfo={handleCloseInfo}
+                  />
                 )}
               </div>
             )}

@@ -6,12 +6,15 @@ function App() {
   return (
     <div className="App">
       <div className="banner">
-        <img src="./shirley.jpeg" alt="Shirley con su caballete" />
+        <div>
+          <img src="./shirley.jpeg" alt="Shirley con su caballete" />
+        </div>
         <h1>Las mujeres que me habitan</h1>
         <p>
-          Yo no estimó tesoros ni riquezas ....Yo estimó hermosura ...rostros de
-          Santa azul y tostada frente. Por que entre cien mundanas he de
-          encontrar tu cara.
+          Yo no estimo tesoros ni riquezas <br />
+          ....Yo estimo hermosura
+          <br /> ...rostros de Santa azul y tostada frente. <br />
+          Por que entre cien mundanas he de encontrar tu cara.
         </p>
       </div>
       <div className="container">
