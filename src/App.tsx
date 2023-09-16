@@ -8,14 +8,15 @@ function App() {
       <div className="banner">
         <div>
           <img src="./shirley.jpeg" alt="Shirley con su caballete" />
+
+          <h1>Las mujeres que me habitan</h1>
+          <p>
+            Yo no estimo tesoros ni riquezas <br />
+            ....Yo estimo hermosura
+            <br /> ...rostros de Santa azul y tostada frente. <br />
+            Por que entre cien mundanas he de encontrar tu cara.
+          </p>
         </div>
-        <h1>Las mujeres que me habitan</h1>
-        <p>
-          Yo no estimo tesoros ni riquezas <br />
-          ....Yo estimo hermosura
-          <br /> ...rostros de Santa azul y tostada frente. <br />
-          Por que entre cien mundanas he de encontrar tu cara.
-        </p>
       </div>
       <div className="container">
         <ArtworkList />

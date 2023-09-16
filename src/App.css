@@ -27,16 +27,32 @@ footer a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #33333376;
+  background-image: url("./banner.jpeg");
   color: #fff;
 }
 
 .banner h1 {
   font-size: 2.5rem;
+  background-color: #000000d4;
   margin-bottom: 20px;
 }
 
 .banner p {
   font-size: 1.5rem;
+  background-color: #000000d4;
   text-align: center;
+  padding: 10px;
+}
+
+.banner img {
+  width: 170px;
+  height: auto;
+  filter: grayscale(1);
+  border: 12px solid rgb(95, 69, 8);
+}
+
+@media screen and (min-width: 858px) {
+  .banner img {
+    width: 270px;
+  }
 }
