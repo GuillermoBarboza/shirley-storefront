@@ -14,7 +14,7 @@ function App() {
             Yo no estimo tesoros ni riquezas <br />
             ....Yo estimo hermosura
             <br /> ...rostros de Santa azul y tostada frente. <br />
-            Por que entre cien mundanas he de encontrar tu cara.
+            Porque entre cien mundanas he de encontrar tu cara.
           </p>
         </div>
       </div>

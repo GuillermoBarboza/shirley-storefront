@@ -1,12 +1,9 @@
-import React, {
-  useEffect,
-  useState,
-  MouseEvent,
-  MouseEventHandler,
-} from "react";
+import React, { useEffect, useState, MouseEvent } from "react";
 import axios from "axios";
 import styles from "./Artwork.module.css";
 import Modal from "../Modal/Modal";
+import ArtworkElem from "../Artwork/Artwork";
+
 interface Artwork {
   _id: string;
   title: string;
@@ -62,10 +59,12 @@ const ArtworkList: React.FC = () => {
     event: MouseEvent<HTMLLIElement>,
     artwork: Artwork
   ): void => {
-    setActiveItem(artwork);
+    setActiveItem(artwork === activeItem ? null : artwork);
   };
 
-  const handleCloseInfo = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCloseInfo = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): void => {
     event.stopPropagation();
     setActiveItem(null);
   };
@@ -75,35 +74,19 @@ const ArtworkList: React.FC = () => {
       <h1>Lista de obras</h1>
       <ul>
         {artworks.map((artwork) => (
-          <li
-            className={`${styles.artworkItem} ${
-              artwork === activeItem ? styles.active : ""
-            }`}
+          <ArtworkElem
+            artwork={artwork}
             key={artwork._id}
-            onClick={(e: MouseEvent<HTMLLIElement>) =>
-              handleItemClick(e, artwork)
-            }
-          >
-            <img src={artwork.url} alt={artwork.title} />
-            {artwork === activeItem && (
-              <div className={styles.artworkItemContent}>
-                {activeItem && (
-                  /*  <button
-                    className={styles.closeButton}
-                    onClick={handleCloseInfo}
-                  >
-                    Close
-                  </button> */
-                  <Modal
-                    activeItem={activeItem}
-                    handleCloseInfo={handleCloseInfo}
-                  />
-                )}
-              </div>
-            )}
-          </li>
+            activeItem={activeItem}
+            onClick={handleItemClick}
+          />
         ))}
       </ul>
+      {activeItem && (
+        <div className={styles.artworkItemContent}>
+          <Modal activeItem={activeItem} handleCloseInfo={handleCloseInfo} />
+        </div>
+      )}
     </div>
   );
 };
