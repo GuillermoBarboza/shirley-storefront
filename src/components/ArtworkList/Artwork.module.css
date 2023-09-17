@@ -58,6 +58,10 @@
   cursor: pointer;
 }
 
+.loading {
+  font-size: large;
+}
+
 /* Media query for smaller screens */
 @media (max-width: 568px) {
   .artworkListContainer ul {

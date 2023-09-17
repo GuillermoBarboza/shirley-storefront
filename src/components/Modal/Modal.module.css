@@ -10,10 +10,11 @@
 
 .modal {
   position: relative;
-  height: 100%;
+  height: 96%;
   overflow: scroll;
-  width: 70%;
+  width: 75%;
   margin: auto;
+  margin-top: 2%;
   display: flex;
   flex-direction: column;
   background-color: rgb(210, 197, 179);
@@ -35,6 +36,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 30px;
+  padding: 5px;
 }
 
 .title {

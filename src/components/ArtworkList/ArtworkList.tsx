@@ -51,7 +51,10 @@ const ArtworkList: React.FC = () => {
     });
 
     Promise.all(imagePromises).then(() => {
-      setLoading(false); // Set loading to false when all images have loaded
+      // Set loading to false when all images have loaded
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
     });
   }, [artworks]);
 
@@ -69,7 +72,9 @@ const ArtworkList: React.FC = () => {
     setActiveItem(null);
   };
 
-  return (
+  return loading ? (
+    <div className={styles.loading}>Cargando...</div>
+  ) : (
     <div className={styles.artworkListContainer}>
       <h1>Lista de obras</h1>
       <ul>
