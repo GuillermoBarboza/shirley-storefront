@@ -63,9 +63,7 @@ const ArtworkElem: React.FC<ArtworkElemProps> = ({
   return (
     <li
       ref={artworkRef}
-      className={`${styles.artworkItem} ${
-        artwork === activeItem ? styles.active : ""
-      }`}
+      className={`${styles.artworkItem}`}
       onClick={(event) => onClick(event, artwork)}
     >
       <img src={artwork.url} alt={artwork.title} />
