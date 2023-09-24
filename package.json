@@ -10,6 +10,7 @@
     "@types/node": "^16.18.41",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@vercel/analytics": "^1.0.2",
     "axios": "^1.4.0",
     "firebase": "^10.2.0",
     "react": "^18.2.0",

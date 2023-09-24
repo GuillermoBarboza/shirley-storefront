@@ -1,4 +1,5 @@
 import React from "react";
+import { Analytics } from "@vercel/analytics/react";
 import "./App.css";
 import ArtworkList from "./components/ArtworkList/ArtworkList";
 
@@ -39,6 +40,7 @@ function App() {
           <i>© 2023</i>
         </p>
       </footer>
+      <Analytics />
     </div>
   );
 }
