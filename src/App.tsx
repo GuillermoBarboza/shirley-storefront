@@ -2,10 +2,12 @@ import React from "react";
 import { Analytics } from "@vercel/analytics/react";
 import "./App.css";
 import ArtworkList from "./components/ArtworkList/ArtworkList";
+import LandingCanvas from "./components/LandingCanvas/LandingCanvas";
 
 function App() {
   return (
     <div className="App">
+      <LandingCanvas></LandingCanvas>
       <div className="banner">
         <div>
           <img src="./shirley.jpeg" alt="Shirley con su caballete" />
