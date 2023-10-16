@@ -20,9 +20,14 @@ const LandingCanvas: React.FC = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const aspectRatio = windowDimensions.width / windowDimensions.height;
 
-  const gridRows = 5; // Set the number of rows
-  const gridCols = 5; // Set the number of columns
+  // Define a base grid size
+  const baseGridSize = 5;
+
+  // Calculate the number of rows and columns based on the aspect ratio
+  const gridRows = Math.round(baseGridSize / aspectRatio);
+  const gridCols = Math.round(baseGridSize * aspectRatio);
 
   const baseSquareHeight = windowDimensions.height / gridRows;
   const baseSquareWidth = windowDimensions.width / gridCols;
@@ -162,7 +167,7 @@ const LandingCanvas: React.FC = () => {
           duration: 0.255,
           opacity: 0,
           ease: "power2.in",
-          delay: i * 0.6,
+          delay: i * Math.random(),
           onUpdate: () => setSquareGrid((prev) => [...prev]),
         });
       }
@@ -170,8 +175,9 @@ const LandingCanvas: React.FC = () => {
   };
 
   const animateSourceOver = () => {
-    const duration = 0.5;
-    const delay = 0.15;
+    const duration = 0.527;
+    const delay = 0.1;
+    const ease = "back.out";
 
     const squares = [];
     for (let i = 0; i < gridRows; i++) {
@@ -197,7 +203,7 @@ const LandingCanvas: React.FC = () => {
       gsap.to(square, {
         duration: duration,
         opacity: 0,
-        ease: "power2.in",
+        ease: ease,
         delay: index * delay,
         onComplete: () => setSquareGrid([...squareGrid]),
       });
@@ -208,7 +214,7 @@ const LandingCanvas: React.FC = () => {
       gsap.to(square, {
         duration: duration,
         opacity: 0,
-        ease: "power2.in",
+        ease: ease,
         delay: (sourceOverSquares.length + index) * delay,
         onComplete: () => setSquareGrid([...squareGrid]),
       });
@@ -224,7 +230,7 @@ const LandingCanvas: React.FC = () => {
     gsap.ticker.add(animate);
 
     // Choose the animation pattern based on some condition
-    const pattern = "rowByRow"; // Change this to choose the pattern
+    const pattern = "sourceFirst"; // Change this to choose the pattern
     animationPatterns[pattern]();
 
     return () => {

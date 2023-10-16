@@ -76,7 +76,7 @@ const ArtworkList: React.FC = () => {
     <div className={styles.loading}>Cargando...</div>
   ) : (
     <div className={styles.artworkListContainer}>
-      <h1>Lista de obras</h1>
+      <h2>Obras de arte</h2>
       <ul>
         {artworks.map((artwork) => (
           <ArtworkElem

@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap");
+
 .App {
   text-align: center;
   background: rgb(167, 124, 68);
+  font-family: "Oswald", sans-serif;
 }
 
 .container {
@@ -28,6 +31,7 @@ footer a {
   justify-content: center;
   align-items: center;
   background-image: url("./banner.jpeg");
+  background-size: cover;
   color: #fff;
 }
 
