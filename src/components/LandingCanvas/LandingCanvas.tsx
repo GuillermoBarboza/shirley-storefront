@@ -20,6 +20,7 @@ const LandingCanvas: React.FC = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const aspectRatio = windowDimensions.width / windowDimensions.height;
 
   // Define a base grid size
@@ -161,9 +162,13 @@ const LandingCanvas: React.FC = () => {
   };
 
   const animateRowByRow = () => {
+    const tl = gsap.timeline({
+      onComplete: () => setIsAnimationComplete(true),
+    });
+
     for (let i = 0; i < gridRows; i++) {
       for (let j = 0; j < gridCols; j++) {
-        gsap.to(squareGrid[i][j], {
+        tl.to(squareGrid[i][j], {
           duration: 0.255,
           opacity: 0,
           ease: "power2.in",
@@ -175,6 +180,9 @@ const LandingCanvas: React.FC = () => {
   };
 
   const animateSourceOver = () => {
+    const tl = gsap.timeline({
+      onComplete: () => setIsAnimationComplete(true),
+    });
     const duration = 0.527;
     const delay = 0.1;
     const ease = "back.out";
@@ -200,24 +208,32 @@ const LandingCanvas: React.FC = () => {
 
     // Animate squares with source-over first
     sourceOverSquares.forEach((square, index) => {
-      gsap.to(square, {
-        duration: duration,
-        opacity: 0,
-        ease: ease,
-        delay: index * delay,
-        onComplete: () => setSquareGrid([...squareGrid]),
-      });
+      tl.to(
+        square,
+        {
+          duration: duration,
+          opacity: 0,
+          ease: ease,
+          delay: index * delay,
+          onComplete: () => setSquareGrid([...squareGrid]),
+        },
+        0
+      );
     });
 
     // Then animate squares with destination-over
     destinationOverSquares.forEach((square, index) => {
-      gsap.to(square, {
-        duration: duration,
-        opacity: 0,
-        ease: ease,
-        delay: (sourceOverSquares.length + index) * delay,
-        onComplete: () => setSquareGrid([...squareGrid]),
-      });
+      tl.to(
+        square,
+        {
+          duration: duration,
+          opacity: 0,
+          ease: ease,
+          delay: (sourceOverSquares.length + index) * delay,
+          onComplete: () => setSquareGrid([...squareGrid]),
+        },
+        0
+      );
     });
   };
 
@@ -250,14 +266,14 @@ const LandingCanvas: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
+  return !isAnimationComplete ? (
     <canvas
       className={styles.canvas}
       ref={canvasRef}
       width={windowDimensions.width}
       height={windowDimensions.height}
     />
-  );
+  ) : null;
 };
 
 export default LandingCanvas;
