@@ -32,16 +32,25 @@ const Modal: React.FC<ModalProps> = ({
     available,
   } = activeItem;
   const modalContainerRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const handleWindowClick = (event: MouseEvent) => {
+      if (modalContainerRef.current === event.target) {
+        handleCloseInfo(event);
+      }
+    };
+
+    window.addEventListener("click", handleWindowClick);
     document.body.style.overflow = "hidden";
-    if (modalContainerRef.current) {
-      modalContainerRef.current.focus();
+    if (modalRef.current) {
+      modalRef.current.focus();
     }
     return () => {
       document.body.style.overflow = "unset";
+      window.removeEventListener("click", handleWindowClick);
     };
-  }, []);
+  }, [handleCloseInfo]);
 
   const handlePrevItem = () => {
     if (activeItemIndex !== null) {
@@ -81,8 +90,12 @@ const Modal: React.FC<ModalProps> = ({
   });
 
   return (
-    <div className={Styles.modalContainer} {...handlers}>
-      <div className={Styles.modal} tabIndex={0} ref={modalContainerRef}>
+    <div
+      className={Styles.modalContainer}
+      {...handlers}
+      ref={modalContainerRef}
+    >
+      <div className={Styles.modal} tabIndex={0} ref={modalRef}>
         <button
           aria-label="Close modal"
           className={Styles.buttonClose}
