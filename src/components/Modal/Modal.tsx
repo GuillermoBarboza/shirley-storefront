@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Styles from "./Modal.module.css";
+//@ts-ignore
+import useKeypress from "react-use-keypress";
+import { useSwipeable } from "react-swipeable";
 
 interface ModalProps {
   activeItem: any;
   handleCloseInfo: any;
+  changeActiveItem: (newVal: number) => void;
+  activeItemIndex: number | null;
+  artworksLength: number;
 }
 
-const Modal: React.FC<ModalProps> = ({ activeItem, handleCloseInfo }) => {
+const Modal: React.FC<ModalProps> = ({
+  activeItem,
+  handleCloseInfo,
+  changeActiveItem,
+  activeItemIndex,
+  artworksLength,
+}) => {
   const {
     title,
     artist,
@@ -19,19 +31,78 @@ const Modal: React.FC<ModalProps> = ({ activeItem, handleCloseInfo }) => {
     year,
     available,
   } = activeItem;
+  const modalContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    if (modalContainerRef.current) {
+      modalContainerRef.current.focus();
+    }
     return () => {
       document.body.style.overflow = "unset";
     };
   }, []);
 
+  const handlePrevItem = () => {
+    if (activeItemIndex !== null) {
+      const prevIndex =
+        activeItemIndex - 1 >= 0 ? activeItemIndex - 1 : artworksLength - 1;
+      changeActiveItem(prevIndex);
+    }
+  };
+
+  const handleNextItem = () => {
+    if (activeItemIndex !== null) {
+      const nextIndex =
+        activeItemIndex + 1 < artworksLength ? activeItemIndex + 1 : 0;
+      changeActiveItem(nextIndex);
+    }
+  };
+
+  useKeypress(
+    ["ArrowRight", "ArrowLeft", "Escape"],
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      if (event.key === "ArrowRight") {
+        handleNextItem();
+      } else if (event.key === "ArrowLeft") {
+        handlePrevItem();
+      } else if (event.key === "Escape") {
+        handleCloseInfo(event);
+      }
+    },
+    [handleNextItem, handlePrevItem, handleCloseInfo]
+  );
+
+  const handlers = useSwipeable({
+    onSwipedLeft: handleNextItem,
+    onSwipedRight: handlePrevItem,
+    trackMouse: true,
+  });
+
   return (
-    <div className={Styles.modalContainer}>
-      <div className={Styles.modal}>
-        <button className={Styles.buttonClose} onClick={handleCloseInfo}>
+    <div className={Styles.modalContainer} {...handlers}>
+      <div className={Styles.modal} tabIndex={0} ref={modalContainerRef}>
+        <button
+          aria-label="Close modal"
+          className={Styles.buttonClose}
+          onClick={handleCloseInfo}
+        >
           X
+        </button>
+        <button
+          className={`${Styles.navButton} ${Styles.prevButton}`}
+          onClick={handlePrevItem}
+          aria-label="Previous artwork"
+        >
+          &lt;
+        </button>
+        <button
+          className={`${Styles.navButton} ${Styles.nextButton}`}
+          onClick={handleNextItem}
+          aria-label="Next artwork"
+        >
+          &gt;
         </button>
         <img src={url} alt={description || "Pintura seleccionada: " + title} />
         <div className={Styles.info}>
