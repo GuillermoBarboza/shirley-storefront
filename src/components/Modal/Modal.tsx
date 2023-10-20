@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Styles from "./Modal.module.css";
 //@ts-ignore
 import useKeypress from "react-use-keypress";
 import { useSwipeable } from "react-swipeable";
+import GalleryAR from "../GalleryAR/GalleryAR";
 
 interface ModalProps {
   activeItem: any;
@@ -33,6 +34,7 @@ const Modal: React.FC<ModalProps> = ({
   } = activeItem;
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const [arOpen, setAROpen] = useState(false);
 
   useEffect(() => {
     const handleWindowClick = (event: MouseEvent) => {
@@ -89,6 +91,14 @@ const Modal: React.FC<ModalProps> = ({
     trackMouse: true,
   });
 
+  const openARModal = () => {
+    setAROpen(true);
+  };
+
+  const closeAR = () => {
+    setAROpen(false);
+  };
+
   return (
     <div
       className={Styles.modalContainer}
@@ -144,6 +154,8 @@ const Modal: React.FC<ModalProps> = ({
             </a>
           </div>
         </div>
+        <button onClick={openARModal}>Ver Cuadro en realidad aumentukii</button>
+        {arOpen && <GalleryAR imageUrl={url} onClose={closeAR} />}
       </div>
     </div>
   );
