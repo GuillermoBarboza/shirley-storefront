@@ -1,6 +1,12 @@
 import React, { useRef } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { XR, useXREvent, ARButton } from "@react-three/xr";
+import {
+  XR,
+  useXREvent,
+  ARButton,
+  XREvent,
+  XRManagerEvent,
+} from "@react-three/xr";
 import { Mesh, TextureLoader } from "three";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
@@ -43,13 +49,10 @@ const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl, onClose }) => {
       <Canvas>
         <XR
           foveation={0}
-          referenceSpace="local"
-          onSessionStart={(event) => {
-            // Handle the start of the XR session
-          }}
-          onSessionEnd={(event) => {
-            // Handle the end of the XR session
-          }}
+          //referenceSpace="local"
+          onSessionStart={(event: XREvent<XRManagerEvent>) => {}}
+          /** Called after an XRSession is terminated */
+          onSessionEnd={(event: XREvent<XRManagerEvent>) => {}}
         >
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
