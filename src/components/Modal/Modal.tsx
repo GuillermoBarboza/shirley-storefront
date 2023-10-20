@@ -153,10 +153,22 @@ const Modal: React.FC<ModalProps> = ({
             >
               +598 92 904 603
             </a>
-          </div>
+          </div>{" "}
+          <ARButton
+            style={{
+              display: "block",
+              color: "black",
+              marginTop: "35px",
+              padding: "10px",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+            onClick={openARModal}
+          >
+            Ver cuadro en realidad virtual
+          </ARButton>
         </div>
 
-        <ARButton className={styles.arButton} onClick={openARModal} />
         {arOpen && <GalleryAR imageUrl={url} onClose={closeAR} />}
       </div>
     </div>
