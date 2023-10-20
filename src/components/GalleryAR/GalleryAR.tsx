@@ -45,7 +45,7 @@ interface GalleryARProps {
 const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl, onClose }) => {
   return (
     <>
-      <ARButton onClick={onClose} />
+      <ARButton />
       <Canvas>
         <XR
           foveation={0}
