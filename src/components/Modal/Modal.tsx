@@ -4,7 +4,6 @@ import Styles from "./Modal.module.css";
 import useKeypress from "react-use-keypress";
 import { useSwipeable } from "react-swipeable";
 import GalleryAR from "../GalleryAR/GalleryAR";
-import { ARButton } from "@react-three/xr";
 
 interface ModalProps {
   activeItem: any;
@@ -35,7 +34,8 @@ const Modal: React.FC<ModalProps> = ({
   } = activeItem;
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  const [arOpen, setAROpen] = useState(false);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const [image, setImageData] = useState();
 
   useEffect(() => {
     const handleWindowClick = (event: MouseEvent) => {
@@ -92,14 +92,6 @@ const Modal: React.FC<ModalProps> = ({
     trackMouse: true,
   });
 
-  const openARModal = () => {
-    setAROpen(true);
-  };
-
-  const closeAR = () => {
-    setAROpen(false);
-  };
-
   return (
     <div
       className={Styles.modalContainer}
@@ -128,7 +120,11 @@ const Modal: React.FC<ModalProps> = ({
         >
           &gt;
         </button>
-        <img src={url} alt={description || "Pintura seleccionada: " + title} />
+        <img
+          src={url}
+          alt={description || "Pintura seleccionada: " + title}
+          ref={imageRef}
+        />
         <div className={Styles.info}>
           <h3 className={Styles.title}>{title}</h3>
           {artist && <p className={Styles.artist}>Artista: {artist}</p>}
@@ -156,7 +152,7 @@ const Modal: React.FC<ModalProps> = ({
           </div>{" "}
         </div>
 
-        <GalleryAR imageUrl={url} onClose={closeAR} />
+        <GalleryAR imageUrl={url} />
       </div>
     </div>
   );
