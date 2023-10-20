@@ -6,25 +6,22 @@ import { Mesh, TextureLoader } from "three";
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const meshRef = useRef<Mesh>(null);
 
-  const texture = new TextureLoader().load(imageUrl);
-
+  // Add an event listener to handle the XRSessionStarted event
   useXREvent("connected", () => {
     console.log("XR session started!");
   });
 
+  // Add an event listener to handle the XRSessionEnded event
   useXREvent("disconnected", () => {
     console.log("XR session ended!");
   });
 
   useFrame(() => {
     if (meshRef.current) {
-      const { rotation } = meshRef.current;
-      if (rotation) {
-        rotation.x += 0.01;
-        rotation.y += 0.01;
-      }
     }
   });
+
+  const texture = new TextureLoader().load(imageUrl);
 
   return (
     <mesh ref={meshRef}>
@@ -34,14 +31,26 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   );
 }
 
-export default function GalleryAR() {
-  const imageUrl = "your_image_url.jpg"; // Replace with your image URL
+interface GalleryARProps {
+  imageUrl: string;
+  onClose: () => void;
+}
 
+const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl, onClose }) => {
   return (
     <>
-      <ARButton />
+      <ARButton onClick={onClose} />
       <Canvas>
-        <XR foveation={0} referenceSpace="local">
+        <XR
+          foveation={0}
+          referenceSpace="local"
+          onSessionStart={(event) => {
+            // Handle the start of the XR session
+          }}
+          onSessionEnd={(event) => {
+            // Handle the end of the XR session
+          }}
+        >
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
 
@@ -50,4 +59,6 @@ export default function GalleryAR() {
       </Canvas>
     </>
   );
-}
+};
+
+export default GalleryAR;
