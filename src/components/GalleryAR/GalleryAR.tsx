@@ -1,41 +1,53 @@
-import { Canvas } from "@react-three/fiber";
-//@ts-ignore
-import { XR, Hands, Controllers } from "@react-three/xr";
-import { useTexture } from "@react-three/drei";
+import React, { useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { XR, useXREvent, ARButton } from "@react-three/xr";
+import { Mesh, TextureLoader } from "three";
 
-function ARScene({ imageUrl }: { imageUrl: string }) {
-  const texture = useTexture(imageUrl); // Load the image as a texture
+function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
+  const meshRef = useRef<Mesh>(null);
+
+  const texture = new TextureLoader().load(imageUrl);
+
+  useXREvent("connected", () => {
+    console.log("XR session started!");
+  });
+
+  useXREvent("disconnected", () => {
+    console.log("XR session ended!");
+  });
+
+  useFrame(() => {
+    if (meshRef.current) {
+      const { rotation } = meshRef.current;
+      if (rotation) {
+        rotation.x += 0.01;
+        rotation.y += 0.01;
+      }
+    }
+  });
 
   return (
-    <group>
-      <mesh>
-        <planeBufferGeometry args={[1, 1]} />
-        <meshBasicMaterial map={texture} />
-      </mesh>
-    </group>
+    <mesh ref={meshRef}>
+      <planeBufferGeometry args={[1, 1]} />
+      <meshStandardMaterial map={texture} />
+    </mesh>
   );
 }
 
-function GalleryAR({
-  imageUrl,
-  onClose,
-}: {
-  imageUrl: string;
-  onClose: () => void;
-}) {
+export default function GalleryAR() {
+  const imageUrl = "your_image_url.jpg"; // Replace with your image URL
+
   return (
-    <div className="modal">
-      <button onClick={onClose}>Close</button>
-      <Canvas style={{ width: "100%", height: "100%" }}>
-        <ambientLight />
-        <XR>
-          <Hands />
-          <Controllers />
+    <>
+      <ARButton />
+      <Canvas>
+        <XR foveation={0} referenceSpace="local">
+          <ambientLight />
+          <pointLight position={[10, 10, 10]} />
+
           <ARScene imageUrl={imageUrl} />
         </XR>
       </Canvas>
-    </div>
+    </>
   );
 }
-
-export default GalleryAR;
