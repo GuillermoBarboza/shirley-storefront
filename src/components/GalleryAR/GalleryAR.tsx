@@ -34,8 +34,8 @@ interface GalleryARProps {
 const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl }) => {
   return (
     <>
-      <ARButton />
-      <Canvas>
+      <ARButton style={{ zIndex: 99 }} />
+      <Canvas style={{ zIndex: 99 }}>
         <XR
           foveation={0}
           onSessionStart={(event: XREvent<XRManagerEvent>) => {}}
