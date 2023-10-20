@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei"; // Corrected import
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera as Camera } from "@react-three/drei";
 import {
   TextureLoader,
   Mesh,
   PlaneGeometry,
   MeshBasicMaterial,
+  PerspectiveCamera,
   Scene,
 } from "three"; // Import individual components
 
@@ -19,6 +20,11 @@ type ARSceneProps = {
 function ARScene({ imageUrl }: ARSceneProps) {
   const texture = new TextureLoader().load(imageUrl);
 
+  // Set up the camera with the correct aspect ratio
+  const screenAspectRatio = window.innerWidth / window.innerHeight;
+  const camera = new PerspectiveCamera(75, screenAspectRatio, 0.1, 1000);
+  camera.position.z = 5;
+
   const planeGeometry = new PlaneGeometry(2, 2);
   const planeMaterial = new MeshBasicMaterial({ map: texture });
   const planeMesh = new Mesh(planeGeometry, planeMaterial);
@@ -26,13 +32,15 @@ function ARScene({ imageUrl }: ARSceneProps) {
   const scene = new Scene();
   scene.add(planeMesh);
 
-  useFrame(() => {
+  useFrame(({ gl }) => {
+    gl.setSize(window.innerWidth, window.innerHeight); // Update renderer size
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
     // Add any animation logic here
   });
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0, 5]} />
       <OrbitControls enableZoom={false} enablePan={false} enableDamping />
       <primitive object={scene} />
     </>
