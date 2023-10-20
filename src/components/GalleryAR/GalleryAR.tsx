@@ -1,24 +1,24 @@
 import React, { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { XR, useXREvent, ARButton } from "@react-three/xr";
 import { Mesh, TextureLoader } from "three";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const meshRef = useRef<Mesh>(null);
 
+  const { gl } = useThree();
+  // set renderer.domElement.style.display = 'none' when the session starts and back to default when it ends renderer.domElement.style.display = ''
+
   // Add an event listener to handle the XRSessionStarted event
   useXREvent("connected", () => {
+    gl.domElement.style.display = "none";
     console.log("XR session started!");
   });
 
   // Add an event listener to handle the XRSessionEnded event
   useXREvent("disconnected", () => {
+    gl.domElement.style.display = "block";
     console.log("XR session ended!");
-  });
-
-  useFrame(() => {
-    if (meshRef.current) {
-    }
   });
 
   const texture = new TextureLoader().load(imageUrl);
