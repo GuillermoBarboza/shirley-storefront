@@ -1,64 +1,38 @@
-import * as React from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Html } from "@react-three/drei"; // Corrected import
-import { OrbitControls, PerspectiveCamera as Camera } from "@react-three/drei";
-import {
-  TextureLoader,
-  Mesh,
-  PlaneGeometry,
-  MeshBasicMaterial,
-  PerspectiveCamera,
-  Scene,
-} from "three"; // Import individual components
+import { Canvas } from "@react-three/fiber";
+//@ts-ignore
+import { XR, Hands, Controllers } from "@react-three/xr";
+import { useTexture } from "@react-three/drei";
 
-// Define the type for the ARScene props
-type ARSceneProps = {
-  imageUrl: string;
-};
-
-// Define your AR scene using React Three Fiber
-function ARScene({ imageUrl }: ARSceneProps) {
-  const texture = new TextureLoader().load(imageUrl);
-
-  // Set up the camera with the correct aspect ratio
-  const screenAspectRatio = window.innerWidth / window.innerHeight;
-  const camera = new PerspectiveCamera(75, screenAspectRatio, 0.1, 1000);
-  camera.position.z = 5;
-
-  const planeGeometry = new PlaneGeometry(2, 2);
-  const planeMaterial = new MeshBasicMaterial({ map: texture });
-  const planeMesh = new Mesh(planeGeometry, planeMaterial);
-
-  const scene = new Scene();
-  scene.add(planeMesh);
-
-  useFrame(({ gl }) => {
-    gl.setSize(window.innerWidth, window.innerHeight); // Update renderer size
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    // Add any animation logic here
-  });
+function ARScene({ imageUrl }: { imageUrl: string }) {
+  const texture = useTexture(imageUrl); // Load the image as a texture
 
   return (
-    <>
-      <OrbitControls enableZoom={false} enablePan={false} enableDamping />
-      <primitive object={scene} />
-    </>
+    <group>
+      <mesh>
+        <planeBufferGeometry args={[1, 1]} />
+        <meshBasicMaterial map={texture} />
+      </mesh>
+    </group>
   );
 }
 
-// Define the type for the GalleryAR props
-type GalleryARProps = {
+function GalleryAR({
+  imageUrl,
+  onClose,
+}: {
   imageUrl: string;
   onClose: () => void;
-};
-
-function GalleryAR({ imageUrl, onClose }: GalleryARProps) {
+}) {
   return (
     <div className="modal">
       <button onClick={onClose}>Close</button>
       <Canvas style={{ width: "100%", height: "100%" }}>
-        <ARScene imageUrl={imageUrl} />
+        <ambientLight />
+        <XR>
+          <Hands />
+          <Controllers />
+          <ARScene imageUrl={imageUrl} />
+        </XR>
       </Canvas>
     </div>
   );
