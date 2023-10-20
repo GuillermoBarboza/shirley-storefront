@@ -25,7 +25,7 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
 
   return (
     <mesh ref={meshRef}>
-      <planeBufferGeometry args={[1, 1]} />
+      <planeBufferGeometry args={[0.01, 0.01]} />
       <meshStandardMaterial map={texture} />
     </mesh>
   );
