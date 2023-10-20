@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useRef } from "react";
+import React, { MouseEvent, KeyboardEvent, useEffect, useRef } from "react";
 import styles from "./Artwork.module.css";
 
 interface Artwork {
@@ -18,12 +18,14 @@ interface Artwork {
 interface ArtworkElemProps {
   artwork: Artwork;
   activeItem: Artwork | null;
-  onClick: (event: MouseEvent<HTMLLIElement>, artwork: Artwork) => void;
+  onClick: (artwork: Artwork, index: number) => void;
+  index: number;
 }
 
 const ArtworkElem: React.FC<ArtworkElemProps> = ({
   artwork,
   activeItem,
+  index,
   onClick,
 }) => {
   const artworkRef = useRef<HTMLLIElement>(null);
@@ -60,11 +62,20 @@ const ArtworkElem: React.FC<ArtworkElemProps> = ({
     };
   }, []);
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLLIElement>): void => {
+    if (event.key === "Enter") {
+      onClick(artwork, index);
+    }
+  };
+
   return (
     <li
       ref={artworkRef}
       className={`${styles.artworkItem}`}
-      onClick={(event) => onClick(event, artwork)}
+      onClick={() => onClick(artwork, index)}
+      data-artwork={"artwork-" + index.toString()}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
     >
       <img src={artwork.url} alt={artwork.title} />
     </li>

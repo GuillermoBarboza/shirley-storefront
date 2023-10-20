@@ -21,6 +21,7 @@ interface Artwork {
 const ArtworkList: React.FC = () => {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [activeItem, setActiveItem] = useState<Artwork | null>(null);
+  const [activeItemIndex, setActiveItemIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -58,18 +59,29 @@ const ArtworkList: React.FC = () => {
     });
   }, [artworks]);
 
-  const handleItemClick = (
-    event: MouseEvent<HTMLLIElement>,
-    artwork: Artwork
-  ): void => {
-    setActiveItem(artwork === activeItem ? null : artwork);
+  const handleItemClick = (artwork: Artwork, index: number): void => {
+    setActiveItem(artwork);
+    setActiveItemIndex(index);
   };
 
   const handleCloseInfo = (
     event: React.MouseEvent<HTMLButtonElement>
   ): void => {
     event.stopPropagation();
+    // here return focus to the ArtworkElem
+    const lastFocusedArtwork = document.querySelector(
+      `[data-artwork="artwork-${activeItemIndex}"]`
+    );
+    console.log(lastFocusedArtwork, activeItemIndex);
+    if (lastFocusedArtwork) {
+      (lastFocusedArtwork as HTMLElement).focus();
+    }
     setActiveItem(null);
+  };
+
+  const changeActiveItem = (newVal: number) => {
+    setActiveItem(artworks[newVal]);
+    setActiveItemIndex(newVal);
   };
 
   return loading ? (
@@ -78,18 +90,25 @@ const ArtworkList: React.FC = () => {
     <div className={styles.artworkListContainer}>
       <h2>Obras de arte</h2>
       <ul>
-        {artworks.map((artwork) => (
+        {artworks.map((artwork, index) => (
           <ArtworkElem
             artwork={artwork}
-            key={artwork._id}
+            key={`artwork-${index}`}
             activeItem={activeItem}
             onClick={handleItemClick}
+            index={index}
           />
         ))}
       </ul>
       {activeItem && (
         <div className={styles.artworkItemContent}>
-          <Modal activeItem={activeItem} handleCloseInfo={handleCloseInfo} />
+          <Modal
+            activeItem={activeItem}
+            handleCloseInfo={handleCloseInfo}
+            changeActiveItem={changeActiveItem}
+            activeItemIndex={activeItemIndex}
+            artworksLength={artworks.length}
+          />
         </div>
       )}
     </div>
