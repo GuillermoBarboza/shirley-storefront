@@ -97,7 +97,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div
       className={`${Styles.modalContainer} ${
-        toggleAR ? Styles.display : Styles.hide
+        toggleAR ? Styles.hide : Styles.display
       }`}
       {...handlers}
       ref={modalContainerRef}
