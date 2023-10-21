@@ -3,6 +3,7 @@ import Styles from "./Modal.module.css";
 //@ts-ignore
 import useKeypress from "react-use-keypress";
 import { useSwipeable } from "react-swipeable";
+import GalleryAR from "../GalleryAR/GalleryAR";
 
 import { ARButton } from "@react-three/xr";
 
@@ -95,7 +96,9 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className={Styles.modalContainer}
+      className={`${Styles.modalContainer} ${
+        toggleAR ? Styles.display : Styles.hide
+      }`}
       {...handlers}
       ref={modalContainerRef}
     >
@@ -153,6 +156,7 @@ const Modal: React.FC<ModalProps> = ({
           </div>{" "}
         </div>
         <ARButton onClick={() => setToggleAR(!toggleAR)} />
+        <GalleryAR imageUrl={url} />
       </div>
     </div>
   );

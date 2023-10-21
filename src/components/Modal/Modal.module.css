@@ -114,3 +114,11 @@
 .arButton {
   display: block;
 }
+
+.display {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+}

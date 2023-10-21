@@ -3,14 +3,11 @@ import { Analytics } from "@vercel/analytics/react";
 import "./App.css";
 import ArtworkList from "./components/ArtworkList/ArtworkList";
 import LandingCanvas from "./components/LandingCanvas/LandingCanvas";
-import GalleryAR from "./components/GalleryAR/GalleryAR";
 
 function App() {
   return (
     <div className="App">
       <LandingCanvas></LandingCanvas>
-
-      <GalleryAR imageUrl={"url"} />
       <div className="banner">
         <div>
           <img src="./shirley.jpeg" alt="Shirley con su caballete" />
