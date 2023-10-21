@@ -4,10 +4,15 @@ import "./App.css";
 import ArtworkList from "./components/ArtworkList/ArtworkList";
 import LandingCanvas from "./components/LandingCanvas/LandingCanvas";
 
+import GalleryAR from "./components/GalleryAR/GalleryAR";
+
+import { ARButton } from "@react-three/xr";
 function App() {
   return (
     <div className="App">
       <LandingCanvas></LandingCanvas>
+      <ARButton />
+      <GalleryAR imageUrl={"asdf"} />
       <div className="banner">
         <div>
           <img src="./shirley.jpeg" alt="Shirley con su caballete" />
