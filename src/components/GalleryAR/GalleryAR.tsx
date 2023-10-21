@@ -33,7 +33,7 @@ interface GalleryARProps {
 const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl }) => {
   return (
     <>
-      <Canvas style={{ position: "fixed" }}>
+      <Canvas>
         <XR
           foveation={0}
           onSessionStart={(event: XREvent<XRManagerEvent>) => {}}
