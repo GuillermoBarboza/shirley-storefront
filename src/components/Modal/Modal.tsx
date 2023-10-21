@@ -156,7 +156,9 @@ const Modal: React.FC<ModalProps> = ({
           </div>{" "}
         </div>
         <ARButton onClick={() => setToggleAR(!toggleAR)} />
-        <GalleryAR imageUrl={url} />
+        <div style={{ visibility: toggleAR ? "visible" : "hidden" }}>
+          <GalleryAR imageUrl={url} />
+        </div>
       </div>
     </div>
   );
