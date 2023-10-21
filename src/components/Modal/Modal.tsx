@@ -5,6 +5,8 @@ import useKeypress from "react-use-keypress";
 import { useSwipeable } from "react-swipeable";
 import GalleryAR from "../GalleryAR/GalleryAR";
 
+import { ARButton } from "@react-three/xr";
+
 interface ModalProps {
   activeItem: any;
   handleCloseInfo: any;
@@ -151,7 +153,7 @@ const Modal: React.FC<ModalProps> = ({
             </a>
           </div>{" "}
         </div>
-
+        <ARButton />
         <GalleryAR imageUrl={url} />
       </div>
     </div>

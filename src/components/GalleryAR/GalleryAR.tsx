@@ -1,5 +1,4 @@
 import React from "react";
-import { ARButton } from "@react-three/xr";
 import { Canvas, useThree } from "@react-three/fiber";
 import { XR, useXREvent, XREvent, XRManagerEvent } from "@react-three/xr";
 import { TextureLoader } from "three";
@@ -34,8 +33,7 @@ interface GalleryARProps {
 const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl }) => {
   return (
     <>
-      <ARButton style={{ zIndex: 99 }} />
-      <Canvas style={{ zIndex: 99 }}>
+      <Canvas>
         <XR
           foveation={0}
           onSessionStart={(event: XREvent<XRManagerEvent>) => {}}
