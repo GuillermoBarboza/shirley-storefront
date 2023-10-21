@@ -3,7 +3,6 @@ import Styles from "./Modal.module.css";
 //@ts-ignore
 import useKeypress from "react-use-keypress";
 import { useSwipeable } from "react-swipeable";
-import GalleryAR from "../GalleryAR/GalleryAR";
 
 import { ARButton } from "@react-three/xr";
 
@@ -37,7 +36,7 @@ const Modal: React.FC<ModalProps> = ({
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const [image, setImageData] = useState();
+  const [toggleAR, setToggleAR] = useState(false);
 
   useEffect(() => {
     const handleWindowClick = (event: MouseEvent) => {
@@ -153,8 +152,7 @@ const Modal: React.FC<ModalProps> = ({
             </a>
           </div>{" "}
         </div>
-        <ARButton />
-        <GalleryAR imageUrl={url} />
+        <ARButton onClick={() => setToggleAR(!toggleAR)} />
       </div>
     </div>
   );
