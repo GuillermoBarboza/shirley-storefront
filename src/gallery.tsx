@@ -1,20 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import GalleryAR from "./components/GalleryAR/GalleryAR";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <GalleryAR imageUrl={"url"} />
-  </React.StrictMode>
-);
+import { ARButton } from "@react-three/xr";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function Gallery() {
+  return (
+    <div>
+      <ARButton />
+      <div>
+        <GalleryAR imageUrl={"url"} />
+      </div>
+    </div>
+  );
+}
+
+export default Gallery;
