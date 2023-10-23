@@ -20,7 +20,7 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const texture = new TextureLoader().load(imageUrl);
 
   return (
-    <Plane args={[1, 1]} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+    <Plane args={[1, 1]} rotation={[-Math.PI / 2, 0, 0]} position={[0, 1.5, 0]}>
       <meshStandardMaterial map={texture} />
     </Plane>
   );
