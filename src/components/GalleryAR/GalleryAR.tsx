@@ -7,11 +7,10 @@ import {
   XREvent,
   XRManagerEvent,
   Controllers,
+  Hands,
 } from "@react-three/xr";
 import { TextureLoader, Texture } from "three";
 import { Plane } from "@react-three/drei";
-
-import shirleyImage from "./banner.jpeg";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
@@ -27,7 +26,7 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
     console.log("XR session ended!");
   });
 
-  const texture = new TextureLoader().load(shirleyImage);
+  const texture = new TextureLoader().load("./shirley.jpeg");
 
   /*  useFrame(({ clock }) => {
     if (meshRef.current) {
@@ -64,6 +63,7 @@ const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl }) => {
           <pointLight position={[10, 10, 10]} />
           <ARScene imageUrl={imageUrl} />
           <Controllers />
+          <Hands />
         </XR>
       </Canvas>
     </>
