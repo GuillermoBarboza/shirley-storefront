@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import {
   XR,
   useXREvent,
@@ -8,14 +8,26 @@ import {
   XRManagerEvent,
   Controllers,
   Hands,
+  useHitTest,
 } from "@react-three/xr";
-import { TextureLoader, Texture } from "three";
+import { TextureLoader, Euler, Quaternion } from "three";
 import { Plane } from "@react-three/drei";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
   const meshRef = React.useRef<THREE.Mesh>(null!);
   const [texture, setTexture] = React.useState<THREE.Texture>();
+
+  useHitTest((hitMatrix, hit) => {
+    const euler = new Euler(0, Math.PI, 0); // Your Euler rotation
+    const quaternion = new Quaternion().setFromEuler(euler);
+
+    hitMatrix.decompose(
+      meshRef.current.position,
+      quaternion,
+      meshRef.current.scale
+    );
+  });
 
   useXREvent("connected", () => {
     gl.domElement.style.display = "none";
@@ -44,12 +56,6 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   React.useEffect(() => {
     console.log(texture);
   }, [texture]);
-
-  /*  useFrame(({ clock }) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = clock.getElapsedTime();
-    }
-  }); */
 
   return (
     <Plane
