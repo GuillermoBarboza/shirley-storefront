@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Styles from "./Modal.module.css";
 //@ts-ignore
 import useKeypress from "react-use-keypress";
 import { useSwipeable } from "react-swipeable";
-import GalleryAR from "../GalleryAR/GalleryAR";
-
-import { ARButton } from "@react-three/xr";
 
 interface ModalProps {
   activeItem: any;
@@ -37,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const [toggleAR, setToggleAR] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleWindowClick = (event: MouseEvent) => {
@@ -96,9 +94,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className={`${Styles.modalContainer} ${
-        toggleAR ? Styles.hide : Styles.display
-      }`}
+      className={`${Styles.modalContainer}`}
       {...handlers}
       ref={modalContainerRef}
     >
@@ -155,10 +151,14 @@ const Modal: React.FC<ModalProps> = ({
             </a>
           </div>{" "}
         </div>
-        <ARButton onClick={() => setToggleAR(!toggleAR)} />
-        <div style={{ visibility: toggleAR ? "visible" : "hidden" }}>
-          <GalleryAR imageUrl={url} />
-        </div>
+        <button
+          onClick={() => {
+            const encodedUrl = encodeURIComponent(url);
+            navigate(`/gallery?url=${encodedUrl}`);
+          }}
+        >
+          Abrir en realidad aumentada
+        </button>
       </div>
     </div>
   );
