@@ -1,5 +1,5 @@
 import React from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   XR,
   useXREvent,
@@ -12,6 +12,7 @@ import { Plane } from "@react-three/drei";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
+  const meshRef = React.useRef<THREE.Mesh>(null!);
 
   useXREvent("connected", () => {
     gl.domElement.style.display = "none";
@@ -24,6 +25,12 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   });
 
   const texture = new TextureLoader().load(imageUrl);
+
+  useFrame(({ clock }) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = clock.getElapsedTime();
+    }
+  });
 
   return (
     <Plane args={[1, 1]} rotation={[0, Math.PI, 0]} position={[0, 0, 0.06]}>
