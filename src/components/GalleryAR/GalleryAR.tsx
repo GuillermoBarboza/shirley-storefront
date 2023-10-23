@@ -33,7 +33,7 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   });
 
   return (
-    <Plane args={[1, 1]} rotation={[0, Math.PI, 0]} position={[0, 0, 0.06]}>
+    <Plane args={[1, 1]} rotation={[0, 0, 0]} position={[0, 0, 0.06]}>
       <meshStandardMaterial map={texture} />
     </Plane>
   );
