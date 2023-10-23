@@ -9,25 +9,37 @@ import {
   Controllers,
   Hands,
   useHitTest,
+  useXR,
 } from "@react-three/xr";
 import { TextureLoader, Euler, Quaternion } from "three";
 import { Plane } from "@react-three/drei";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
+  const { isPresenting } = useXR();
   const meshRef = React.useRef<THREE.Mesh>(null!);
   const [texture, setTexture] = React.useState<THREE.Texture>();
 
   useHitTest((hitMatrix, hit) => {
-    const euler = new Euler(0, Math.PI, 0);
-    const quaternion = new Quaternion().setFromEuler(euler);
-    console.log(hit);
-    hitMatrix.decompose(
-      meshRef.current.position,
-      quaternion,
-      meshRef.current.scale
-    );
+    if (isPresenting) {
+      const euler = new Euler(0, Math.PI, 0);
+      const quaternion = new Quaternion().setFromEuler(euler);
+      console.log(hit);
+      hitMatrix.decompose(
+        meshRef.current.position,
+        quaternion,
+        meshRef.current.scale
+      );
+    }
   });
+
+  React.useEffect(() => {
+    if (isPresenting) {
+      console.log("AR session is running");
+    } else {
+      console.log("AR session is not running");
+    }
+  }, [isPresenting]);
 
   useXREvent("connected", () => {
     gl.domElement.style.display = "none";
