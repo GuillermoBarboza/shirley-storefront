@@ -48,8 +48,8 @@ const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl }) => {
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <ARScene imageUrl={imageUrl} />
+          <Controllers />
         </XR>
-        <Controllers />
       </Canvas>
     </>
   );
