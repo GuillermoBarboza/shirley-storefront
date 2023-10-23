@@ -7,16 +7,17 @@ import {
   XREvent,
   XRManagerEvent,
   Controllers,
+  useController,
   Hands,
   useHitTest,
   useXR,
 } from "@react-three/xr";
-import { TextureLoader, Euler, Quaternion } from "three";
+import { TextureLoader, Euler, Quaternion, Vector } from "three";
 import { Plane } from "@react-three/drei";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
-  const { isPresenting } = useXR();
+  const { isPresenting, player } = useXR();
   const meshRef = React.useRef<THREE.Mesh>(null!);
   const [texture, setTexture] = React.useState<THREE.Texture>();
 
@@ -65,9 +66,9 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
       });
   }, [imageUrl]);
 
-  React.useEffect(() => {
+  /*  React.useEffect(() => {
     console.log(texture);
-  }, [texture]);
+  }, [texture]); */
 
   return (
     <Plane
