@@ -11,7 +11,7 @@ import {
 import { TextureLoader, Texture } from "three";
 import { Plane } from "@react-three/drei";
 
-import shirleyImage from "./shirley.jpeg";
+import shirleyImage from "./banner.jpeg";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
