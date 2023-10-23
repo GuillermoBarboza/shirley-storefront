@@ -15,6 +15,7 @@ import { Plane } from "@react-three/drei";
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
   const meshRef = React.useRef<THREE.Mesh>(null!);
+  const [texture, setTexture] = React.useState<THREE.Texture>();
 
   useXREvent("connected", () => {
     gl.domElement.style.display = "none";
@@ -26,7 +27,18 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
     console.log("XR session ended!");
   });
 
-  const texture = new TextureLoader().load("./shirley.jpeg");
+  React.useEffect(() => {
+    fetch(imageUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = URL.createObjectURL(blob);
+        const loader = new TextureLoader();
+        loader.load(url, (texture) => {
+          setTexture(texture);
+          URL.revokeObjectURL(url);
+        });
+      });
+  }, [imageUrl]);
 
   /*  useFrame(({ clock }) => {
     if (meshRef.current) {
