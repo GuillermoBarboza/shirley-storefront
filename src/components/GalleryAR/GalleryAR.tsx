@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   XR,
@@ -13,6 +14,7 @@ import { Plane } from "@react-three/drei";
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
   const meshRef = React.useRef<THREE.Mesh>(null!);
+  const [textureUrl, setTextureUrl] = React.useState<string | null>(null);
 
   useXREvent("connected", () => {
     gl.domElement.style.display = "none";
@@ -24,9 +26,20 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
     console.log("XR session ended!");
   });
 
-  const texture = new TextureLoader()
-    .setCrossOrigin("anonymous")
-    .load(imageUrl);
+  React.useEffect(() => {
+    const fetchImage = async () => {
+      const response = await axios.get(imageUrl, {
+        responseType: "arraybuffer",
+      });
+      const blob = new Blob([response.data], { type: "image/jpeg" });
+      const blobUrl = URL.createObjectURL(blob);
+      setTextureUrl(blobUrl);
+    };
+
+    fetchImage();
+  }, [imageUrl]);
+
+  const texture = textureUrl ? new TextureLoader().load(textureUrl) : null;
 
   useFrame(({ clock }) => {
     if (meshRef.current) {
@@ -35,8 +48,13 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   });
 
   return (
-    <Plane args={[1, 1]} rotation={[0, 0, 0]} position={[0, 1, -1]}>
-      <meshStandardMaterial map={texture} />
+    <Plane
+      ref={meshRef}
+      args={[1, 1]}
+      rotation={[0, 0, 0]}
+      position={[0, 0, 0.06]}
+    >
+      {texture && <meshStandardMaterial map={texture} />}
     </Plane>
   );
 }
