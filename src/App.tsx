@@ -10,7 +10,7 @@ import { ARButton } from "@react-three/xr";
 function App() {
   return (
     <div className="App">
-      <LandingCanvas></LandingCanvas>
+      {/*   <LandingCanvas></LandingCanvas> */}
       <ARButton />
       <GalleryAR imageUrl={"asdf"} />
       <div className="banner">
