@@ -11,10 +11,11 @@ import {
 import { TextureLoader, Texture } from "three";
 import { Plane } from "@react-three/drei";
 
+import shirleyImage from "./shirley.jpeg";
+
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
   const meshRef = React.useRef<THREE.Mesh>(null!);
-  const [texture, setTexture] = React.useState<Texture | null>(null);
 
   useXREvent("connected", () => {
     gl.domElement.style.display = "none";
@@ -26,19 +27,7 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
     console.log("XR session ended!");
   });
 
-  React.useEffect(() => {
-    const loadTexture = async () => {
-      const response = await axios.get(imageUrl, { responseType: "blob" });
-      const url = URL.createObjectURL(response.data);
-      const loader = new TextureLoader();
-      loader.load(url, (texture) => {
-        setTexture(texture);
-        URL.revokeObjectURL(url);
-      });
-    };
-
-    loadTexture();
-  }, [imageUrl]);
+  const texture = new TextureLoader().load(shirleyImage);
 
   /*  useFrame(({ clock }) => {
     if (meshRef.current) {
