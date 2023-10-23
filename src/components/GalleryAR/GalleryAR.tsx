@@ -12,7 +12,7 @@ import {
   useHitTest,
   useXR,
 } from "@react-three/xr";
-import { TextureLoader, Euler, Quaternion, Vector } from "three";
+import { TextureLoader, Euler, Quaternion, Vector3 } from "three";
 import { Plane } from "@react-three/drei";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
@@ -26,11 +26,12 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
       const euler = new Euler(0, Math.PI, 0);
       const quaternion = new Quaternion().setFromEuler(euler);
       console.log(hit);
-      hitMatrix.decompose(
-        meshRef.current.position,
-        quaternion,
-        meshRef.current.scale
-      );
+      const position = new Vector3();
+      const scale = new Vector3();
+      hitMatrix.decompose(position, quaternion, scale);
+      meshRef.current.position.copy(position);
+      meshRef.current.scale.copy(scale);
+      meshRef.current.rotation.setFromQuaternion(quaternion);
     }
   });
 
