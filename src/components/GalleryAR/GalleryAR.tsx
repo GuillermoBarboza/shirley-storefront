@@ -24,7 +24,9 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
     console.log("XR session ended!");
   });
 
-  const texture = new TextureLoader().load(imageUrl);
+  const texture = new TextureLoader()
+    .setCrossOrigin("anonymous")
+    .load(imageUrl);
 
   useFrame(({ clock }) => {
     if (meshRef.current) {
@@ -33,7 +35,7 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   });
 
   return (
-    <Plane args={[1, 1]} rotation={[0, 0, 0]} position={[0, 0, 0.06]}>
+    <Plane args={[1, 1]} rotation={[0, 0, 0]} position={[0, 1, -1]}>
       <meshStandardMaterial map={texture} />
     </Plane>
   );
