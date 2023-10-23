@@ -8,13 +8,13 @@ import {
   XRManagerEvent,
   Controllers,
 } from "@react-three/xr";
-import { TextureLoader } from "three";
+import { TextureLoader, Texture } from "three";
 import { Plane } from "@react-three/drei";
 
 function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { gl } = useThree();
   const meshRef = React.useRef<THREE.Mesh>(null!);
-  const [textureUrl, setTextureUrl] = React.useState<string | null>(null);
+  const [texture, setTexture] = React.useState<Texture | null>(null);
 
   useXREvent("connected", () => {
     gl.domElement.style.display = "none";
@@ -27,32 +27,31 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   });
 
   React.useEffect(() => {
-    const fetchImage = async () => {
-      const response = await axios.get(imageUrl, {
-        responseType: "arraybuffer",
+    const loadTexture = async () => {
+      const response = await axios.get(imageUrl, { responseType: "blob" });
+      const url = URL.createObjectURL(response.data);
+      const loader = new TextureLoader();
+      loader.load(url, (texture) => {
+        setTexture(texture);
+        URL.revokeObjectURL(url);
       });
-      const blob = new Blob([response.data], { type: "image/jpeg" });
-      const blobUrl = URL.createObjectURL(blob);
-      setTextureUrl(blobUrl);
     };
 
-    fetchImage();
+    loadTexture();
   }, [imageUrl]);
 
-  const texture = textureUrl ? new TextureLoader().load(textureUrl) : null;
-
-  useFrame(({ clock }) => {
+  /*  useFrame(({ clock }) => {
     if (meshRef.current) {
       meshRef.current.rotation.y = clock.getElapsedTime();
     }
-  });
+  }); */
 
   return (
     <Plane
       ref={meshRef}
       args={[1, 1]}
       rotation={[0, 0, 0]}
-      position={[0, 0, 0.06]}
+      position={[0, 1, -2]}
     >
       {texture && <meshStandardMaterial map={texture} />}
     </Plane>
