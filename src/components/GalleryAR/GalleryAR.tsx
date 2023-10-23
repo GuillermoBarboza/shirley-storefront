@@ -19,9 +19,9 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const [texture, setTexture] = React.useState<THREE.Texture>();
 
   useHitTest((hitMatrix, hit) => {
-    const euler = new Euler(0, Math.PI, 0); // Your Euler rotation
+    const euler = new Euler(0, Math.PI, 0);
     const quaternion = new Quaternion().setFromEuler(euler);
-
+    console.log(hit);
     hitMatrix.decompose(
       meshRef.current.position,
       quaternion,
