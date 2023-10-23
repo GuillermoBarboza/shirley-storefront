@@ -1,6 +1,12 @@
 import React from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { XR, useXREvent, XREvent, XRManagerEvent } from "@react-three/xr";
+import {
+  XR,
+  useXREvent,
+  XREvent,
+  XRManagerEvent,
+  Controllers,
+} from "@react-three/xr";
 import { TextureLoader } from "three";
 import { Plane } from "@react-three/drei";
 
@@ -20,7 +26,7 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const texture = new TextureLoader().load(imageUrl);
 
   return (
-    <Plane args={[1, 1]} rotation={[0, Math.PI, 0]} position={[0, 0, -1.5]}>
+    <Plane args={[1, 1]} rotation={[0, Math.PI, 0]} position={[0, 0, 0.06]}>
       <meshStandardMaterial map={texture} />
     </Plane>
   );
@@ -43,6 +49,7 @@ const GalleryAR: React.FC<GalleryARProps> = ({ imageUrl }) => {
           <pointLight position={[10, 10, 10]} />
           <ARScene imageUrl={imageUrl} />
         </XR>
+        <Controllers />
       </Canvas>
     </>
   );
