@@ -28,6 +28,7 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   });
 
   React.useEffect(() => {
+    console.log(imageUrl);
     fetch(imageUrl)
       .then((response) => response.blob())
       .then((blob) => {
@@ -39,6 +40,10 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
         });
       });
   }, [imageUrl]);
+
+  React.useEffect(() => {
+    console.log(texture);
+  }, [texture]);
 
   /*  useFrame(({ clock }) => {
     if (meshRef.current) {
