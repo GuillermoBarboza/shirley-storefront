@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
   XR,
@@ -7,7 +6,6 @@ import {
   XREvent,
   XRManagerEvent,
   Controllers,
-  useController,
   Hands,
   useHitTest,
   useXR,
@@ -20,18 +18,18 @@ function ARScene({ imageUrl }: { imageUrl: string }): JSX.Element {
   const { isPresenting, player } = useXR();
   const meshRef = React.useRef<THREE.Mesh>(null!);
   const [texture, setTexture] = React.useState<THREE.Texture>();
+  const [hitTestInitialized, setHitTestInitialized] = React.useState(false);
 
   useHitTest((hitMatrix, hit) => {
-    if (isPresenting) {
+    if (isPresenting && !hitTestInitialized) {
       const euler = new Euler(0, Math.PI, 0);
       const quaternion = new Quaternion().setFromEuler(euler);
-      console.log(hit);
       const position = new Vector3();
-      const scale = new Vector3();
+      const scale = new Vector3(1, 1, 1); // Assuming a fixed scale
       hitMatrix.decompose(position, quaternion, scale);
       meshRef.current.position.copy(position);
-      meshRef.current.scale.copy(scale);
       meshRef.current.rotation.setFromQuaternion(quaternion);
+      setHitTestInitialized(true);
     }
   });
 
