@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./Artwork.module.css";
 import Modal from "../Modal/Modal";
 import ArtworkElem from "../Artwork/Artwork";
+import RiveComponent from "@rive-app/react-canvas";
 
 interface Artwork {
   _id: string;
@@ -54,8 +55,9 @@ const ArtworkList: React.FC = () => {
     Promise.all(imagePromises).then(() => {
       // Set loading to false when all images have loaded
       setTimeout(() => {
+        console.log("All images loaded");
         setLoading(false);
-      }, 1500);
+      }, 4500);
     });
   }, [artworks]);
 
@@ -84,22 +86,25 @@ const ArtworkList: React.FC = () => {
     setActiveItemIndex(newVal);
   };
 
-  return loading ? (
-    <div className={styles.loading}>Cargando...</div>
-  ) : (
+  return (
     <div className={styles.artworkListContainer}>
       <h2>Obras de arte</h2>
-      <ul>
-        {artworks.map((artwork, index) => (
-          <ArtworkElem
-            artwork={artwork}
-            key={`artwork-${index}`}
-            activeItem={activeItem}
-            onClick={handleItemClick}
-            index={index}
-          />
-        ))}
-      </ul>
+      {loading ? (
+        <RiveComponent src="loading.riv" className={styles.loading} />
+      ) : (
+        <ul>
+          {artworks.map((artwork, index) => (
+            <ArtworkElem
+              artwork={artwork}
+              key={`artwork-${index}`}
+              activeItem={activeItem}
+              onClick={handleItemClick}
+              index={index}
+            />
+          ))}
+        </ul>
+      )}
+
       {activeItem && (
         <div className={styles.artworkItemContent}>
           <Modal

@@ -64,7 +64,7 @@
 }
 
 .loading {
-  font-size: large;
+  height: 400px;
 }
 
 /* Media query for smaller screens */
