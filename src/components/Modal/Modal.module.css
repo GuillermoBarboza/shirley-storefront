@@ -11,7 +11,7 @@
 .modal {
   position: relative;
   height: 96%;
-  overflow: scroll;
+  overflow-y: auto;
   width: 75%;
   margin: auto;
   margin-top: 2%;
