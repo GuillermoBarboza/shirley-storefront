@@ -25,7 +25,7 @@ footer a {
 }
 
 .banner {
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,3 +60,9 @@ footer a {
     width: 270px;
   }
 }
+
+@media screen and (orientation: landscape) {
+  .banner h1 {
+    margin-top: 0;
+  }
+ } 
