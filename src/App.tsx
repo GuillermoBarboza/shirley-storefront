@@ -1,50 +1,18 @@
+// shirley-storefront/src/App.tsx
 import React from "react";
-import { Analytics } from "@vercel/analytics/react";
-import "./App.css";
-import ArtworkList from "./components/ArtworkList/ArtworkList";
-import LandingCanvas from "./components/LandingCanvas/LandingCanvas";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Galeria from "./pages/Galeria";
+import Home from "./pages/Home";
 
 function App() {
-  return (
-    <div className="App">
-      <LandingCanvas></LandingCanvas>
-      <div className="banner">
-        <div>
-          <img src="./shirley.jpeg" alt="Shirley con su caballete" />
-
-          <h1>Las mujeres que me habitan</h1>
-          <p>
-            Yo no estimo tesoros ni riquezas <br />
-            ....Yo estimo hermosura
-            <br /> ...rostros de Santa azul y tostada frente. <br />
-            Porque entre cien mundanas he de encontrar tu cara.
-          </p>
-        </div>
-      </div>
-      <div className="container">
-        <ArtworkList />
-      </div>
-      <footer>
-        <p>
-          <strong>Hola, soy Shirley Madero</strong>
-        </p>
-        <p>
-          Hacé tu consulta al{" "}
-          <a
-            href={`https://wa.me/+59892904603`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            +598 92 904 603
-          </a>
-        </p>
-        <p>
-          <i>© 2023</i>
-        </p>
-      </footer>
-      <Analytics />
-    </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/galeria" element={<Galeria />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

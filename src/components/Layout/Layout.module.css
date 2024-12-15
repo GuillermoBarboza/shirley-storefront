@@ -1,0 +1,16 @@
+.app {
+    text-align: center;
+    background: #a77c44;
+    font-family: "Oswald", sans-serif;
+}
+
+.footer {
+    background-color: #08070786;
+    color: #e8e6e6;
+    padding: 20px;
+}
+
+.footer a {
+    color: #ffedd5;
+    text-decoration: underline;
+}

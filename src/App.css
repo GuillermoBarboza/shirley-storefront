@@ -1,62 +1,62 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap");
 
-.App {
-  text-align: center;
-  background: rgb(167, 124, 68);
-  font-family: "Oswald", sans-serif;
-}
-
 .container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-  background: rgba(125, 83, 28, 0.775);
-}
-
-footer {
-  background-color: #08070786;
-  color: #e8e6e6;
-  padding: 20px;
-}
-
-footer a {
-  color: #ffedd5;
-  text-decoration: underline;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(125, 83, 28, 0.775);
 }
 
 .banner {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: url("./banner.jpeg");
-  background-size: cover;
-  color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("./banner.jpeg");
+    background-size: cover;
+    color: #fff;
 }
 
 .banner h1 {
-  font-size: 2.5rem;
-  background-color: #000000d4;
-  margin-bottom: 20px;
+    font-size: 2.5rem;
+    background-color: #000000d4;
+    margin-bottom: 20px;
 }
 
 .banner p {
-  font-size: 1.5rem;
-  background-color: #000000d4;
-  text-align: center;
-  padding: 10px;
+    font-size: 1.5rem;
+    background-color: #000000d4;
+    text-align: center;
+    padding: 10px;
 }
 
 .banner img {
-  width: 170px;
-  height: auto;
-  filter: grayscale(1);
-  border: 12px solid rgb(95, 69, 8);
+    width: 170px;
+    height: auto;
+    filter: grayscale(1);
+    border: 12px solid rgb(95, 69, 8);
+}
+
+@media screen and (max-width: 858px) {
+    .banner div {
+        width: 100%;
+    }
+
+    .banner h1 {
+        font-size: 1.7rem;
+        background-color: #000000d4;
+        margin-bottom: 14px;
+    }
+
+    .banner p {
+        font-size: 1.2rem;
+        padding: 6px;
+    }
 }
 
 @media screen and (min-width: 858px) {
-  .banner img {
-    width: 270px;
-  }
+    .banner img {
+        width: 270px;
+    }
 }
