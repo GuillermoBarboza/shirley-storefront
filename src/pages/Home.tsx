@@ -27,17 +27,25 @@ function Home() {
     return (
         <Layout>
             <LandingCanvas></LandingCanvas>
+            <div className="landing-page">
+                <div className="name-container">
+                    <span className="name">Shirley</span>
+                    <span className="lastname">Madero</span>
+                </div>
+            </div>
             <div className="banner">
-                <div>
+                <div className="content">
                     <img src="./shirley.jpeg" alt="Shirley con su caballete" />
+                    <div className="text">
+                        <h2>Las mujeres que me habitan</h2>
+                        <p>
+                            Yo no estimo tesoros ni riquezas <br />
+                            ....Yo estimo hermosura
+                            <br /> ...rostros de Santa azul y tostada frente. <br />
+                            Porque entre cien mundanas he de encontrar tu cara.
+                        </p>
+                    </div>
 
-                    <h1>Las mujeres que me habitan</h1>
-                    <p>
-                        Yo no estimo tesoros ni riquezas <br />
-                        ....Yo estimo hermosura
-                        <br /> ...rostros de Santa azul y tostada frente. <br />
-                        Porque entre cien mundanas he de encontrar tu cara.
-                    </p>
                 </div>
             </div>
             <ArtworkCarousel artworks={artworks} />

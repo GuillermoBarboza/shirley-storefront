@@ -1,15 +1,20 @@
 .root {
     position: relative;
     width: 100%;
-    height: 100%;
-    margin: 10px 0px;
+
 }
 
-.root img {
-    display: block;
-    box-sizing: border-box;
+.carousel {
+    position: relative;
     width: 100%;
     height: 100%;
+    gap: 20px;
+}
+
+.carousel img {
+    display: block;
+    box-sizing: border-box;
+    height: inherit;
     object-fit: cover;
     object-position: left;
     border-top-color: #cab00b;
@@ -23,10 +28,23 @@
 .card {
     display: flex;
     flex-direction: column;
-    margin: 5px;
     padding: 15px;
-    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     text-align: center;
 }
+
+.cardWrapper {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.root canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: inherit;
+}
+  

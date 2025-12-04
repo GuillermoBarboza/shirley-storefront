@@ -1,7 +1,8 @@
 .app {
     text-align: center;
-    background: #a77c44;
+    background: #ffbf6c;
     font-family: "Oswald", sans-serif;
+    background-image: url("/public/cremme.png");
 }
 
 .footer {
