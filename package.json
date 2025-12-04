@@ -2,6 +2,9 @@
     "name": "shirley-storefront",
     "version": "0.1.0",
     "private": true,
+    "engines": {
+        "node": "24.x"
+    },
     "dependencies": {
         "@gsap/react": "^2.1.1",
         "@react-hook/resize-observer": "^2.0.2",
