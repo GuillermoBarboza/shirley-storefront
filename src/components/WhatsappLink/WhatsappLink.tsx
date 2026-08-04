@@ -1,32 +1,26 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import { useContactPhone, waLink } from "../../hooks/useContactPhone";
 
-const WhatsAppLink = (props: { title: string }) => {
-    const [phoneNumber, setPhoneNumber] = useState("");
+/**
+ * "Consultar por WhatsApp" CTA used from the artwork modal. `className` lets the
+ * caller apply the surrounding surface's button treatment.
+ */
+const WhatsAppLink = (props: { title: string; className?: string }) => {
+    const phone = useContactPhone();
 
-    useEffect(() => {
-        const fetchPhoneNumber = async () => {
-            try {
-                const response = await axios.get(
-                    process.env.REACT_APP_API_CONTACT_INFO_ENDPOINT + "/"
-                );
-                setPhoneNumber(response.data.phoneNumber);
-            } catch (error) {
-                console.error("Error fetching phone number:", error);
-            }
-        };
-
-        fetchPhoneNumber();
-    }, []);
-
-    const message = encodeURIComponent(
-        `Hola, me interesa esta pintura: "${props.title}", esta disponible?`
+    const url = waLink(
+        phone,
+        `Hola, me interesa esta pintura: "${props.title}", ¿está disponible?`
     );
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
     return (
-        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            Contact Us on WhatsApp
+        <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={props.className}
+        >
+            Consultar por WhatsApp
         </a>
     );
 };

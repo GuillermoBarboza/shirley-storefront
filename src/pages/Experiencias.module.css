@@ -1,0 +1,274 @@
+.intro {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 88px var(--page-pad) 24px;
+    text-align: center;
+}
+
+.eyebrow {
+    font: 600 12px var(--font-ui);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 14px;
+}
+
+.pageTitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 38px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.lede {
+    margin-top: 16px;
+    font: 400 15px var(--font-ui);
+    color: var(--ink-65);
+    line-height: 1.6;
+}
+
+.section {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 56px var(--page-pad);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.sectionLast {
+    padding: 24px var(--page-pad) 96px;
+}
+
+.photo {
+    width: 100%;
+    height: 420px;
+    min-width: 0;
+    background: var(--panel);
+    overflow: hidden;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.copy {
+    min-width: 0;
+}
+
+.reverse .copy {
+    order: 2;
+}
+
+.reverse .photo {
+    order: 1;
+}
+
+.kicker {
+    font: 600 11px var(--font-ui);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.kickerOlive {
+    color: var(--olive);
+}
+
+.kickerGold {
+    color: var(--gold-deep);
+}
+
+.title {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 28px;
+    margin: 0 0 14px;
+    font-weight: 400;
+}
+
+.quote {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-70);
+    margin-bottom: 16px;
+}
+
+.place {
+    font: 500 13px var(--font-ui);
+    color: var(--ink-55);
+    margin-bottom: 22px;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    margin-bottom: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.steps li {
+    font: 400 13px var(--font-ui);
+    color: rgba(43, 36, 29, 0.75);
+}
+
+.note {
+    font: 400 13px var(--font-ui);
+    color: var(--ink-65);
+    margin-bottom: 26px;
+}
+
+.body {
+    font: 400 14px var(--font-ui);
+    color: var(--ink-70);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* --- Reservation modal --- */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(31, 27, 22, 0.75);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.dialog {
+    background: var(--paper);
+    max-width: 440px;
+    width: 100%;
+    padding: 36px;
+    position: relative;
+    text-align: left;
+    max-height: 88vh;
+    overflow: auto;
+}
+
+.close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #fff;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--ink);
+}
+
+.dialogTitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 22px;
+    margin: 0 0 6px;
+    font-weight: 400;
+}
+
+.dialogSub {
+    font: 500 13px var(--font-ui);
+    color: var(--gold-deep);
+    margin-bottom: 22px;
+}
+
+.field {
+    margin-bottom: 14px;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.row > div {
+    flex: 1;
+}
+
+.label {
+    display: block;
+    font: 500 12px var(--font-ui);
+    color: var(--ink-65);
+    margin-bottom: 6px;
+}
+
+.input,
+.textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px 11px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-family: var(--font-ui);
+    background: #fff;
+    color: var(--ink);
+}
+
+.input:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+.textarea {
+    min-height: 60px;
+}
+
+.disclaimer {
+    font: 400 12px var(--font-ui);
+    color: var(--ink-50);
+    margin: 6px 0 16px;
+}
+
+.submit {
+    width: 100%;
+    padding: 12px;
+}
+
+@media screen and (max-width: 960px) {
+    .section {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .reverse .copy,
+    .reverse .photo {
+        order: initial;
+    }
+
+    .photo {
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .intro {
+        padding: 56px var(--page-pad) 16px;
+    }
+
+    .pageTitle {
+        font-size: 28px;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .dialog {
+        padding: 28px 22px;
+    }
+}

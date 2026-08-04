@@ -1,0 +1,38 @@
+.banner {
+    background: var(--gold);
+    color: #fff;
+    padding: 56px var(--page-pad);
+    text-align: center;
+}
+
+.title {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 38px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.count {
+    margin-top: 8px;
+    font: 400 14px var(--font-ui);
+    opacity: 0.85;
+}
+
+.body {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 56px var(--page-pad);
+}
+
+@media screen and (max-width: 860px) {
+    .title {
+        font-size: 28px;
+    }
+    .banner {
+        padding: 40px var(--page-pad);
+    }
+    .body {
+        padding: 32px var(--page-pad);
+    }
+}

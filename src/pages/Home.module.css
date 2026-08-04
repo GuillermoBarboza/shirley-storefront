@@ -1,0 +1,337 @@
+/* --- Hero --- */
+.hero {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 96px var(--page-pad) 64px;
+    text-align: center;
+}
+
+.heroEyebrow {
+    font: 600 12px var(--font-ui);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 18px;
+}
+
+.heroName {
+    font-family: var(--font-script);
+    font-size: 110px;
+    line-height: 1;
+    margin: 0;
+    font-weight: 400;
+}
+
+.heroLede {
+    max-width: 520px;
+    margin: 28px auto 0;
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-65);
+}
+
+.heroCta {
+    margin-top: 36px;
+}
+
+/* --- Poem band --- */
+.poem {
+    background: var(--brown);
+    color: var(--cream);
+    padding: 80px var(--page-pad);
+}
+
+.poemInner {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.poemLabel {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 20px;
+}
+
+.poemBody {
+    font-family: var(--font-editorial);
+    font-size: 27px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.poemArt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.poemArt figure {
+    margin: 0;
+    height: 280px;
+    background: rgba(247, 240, 226, 0.08);
+    overflow: hidden;
+}
+
+.poemArt figure:first-child {
+    margin-top: 40px;
+}
+
+.poemArt img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Recent strip --- */
+.recent {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 80px var(--page-pad);
+}
+
+.sectionHead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.sectionTitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 30px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.sectionLink {
+    font: 600 12px var(--font-ui);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold-deep);
+    white-space: nowrap;
+}
+
+.strip {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x proximity;
+}
+
+.stripItem {
+    flex: 0 0 230px;
+    cursor: pointer;
+    min-width: 0;
+    scroll-snap-align: start;
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+}
+
+.stripFrame {
+    width: 100%;
+    height: 290px;
+    background: var(--panel);
+    overflow: hidden;
+}
+
+.stripFrame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.stripTitle {
+    margin-top: 12px;
+    font: 500 15px var(--font-ui);
+}
+
+.stripMeta {
+    font: 400 12px var(--font-ui);
+    color: var(--ink-55);
+    margin-top: 2px;
+}
+
+/* --- Experiencias teaser --- */
+.experiencias {
+    background: var(--olive);
+    color: #f4f1e6;
+    padding: 72px var(--page-pad);
+}
+
+.experienciasInner {
+    max-width: var(--page-max);
+    margin: 0 auto;
+}
+
+.experienciasEyebrow {
+    font: 600 12px var(--font-ui);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--olive-tint);
+}
+
+.experienciasTitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 28px;
+    margin: 8px 0 0;
+    font-weight: 400;
+}
+
+.experienciasLink {
+    font: 600 12px var(--font-ui);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--olive-tint);
+    white-space: nowrap;
+}
+
+.experienciasLink:hover {
+    color: #fff;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.card {
+    background: rgba(247, 240, 226, 0.06);
+    border: 1px solid rgba(247, 240, 226, 0.18);
+    padding: 28px;
+    min-width: 0;
+    display: block;
+    color: inherit;
+}
+
+.card:hover {
+    background: rgba(247, 240, 226, 0.11);
+    color: inherit;
+}
+
+.cardTitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.cardBody {
+    font: 400 13px var(--font-ui);
+    color: rgba(244, 241, 230, 0.75);
+    line-height: 1.6;
+}
+
+/* --- Bio --- */
+.bio {
+    background: var(--panel);
+    padding: 72px var(--page-pad);
+}
+
+.bioInner {
+    max-width: 880px;
+    margin: 0 auto;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.portrait {
+    width: 160px;
+    height: 160px;
+    flex: none;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.bioText {
+    flex: 1;
+    min-width: 280px;
+}
+
+.bioTitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 25px;
+    margin: 0 0 10px;
+    font-weight: 400;
+}
+
+.bioBody {
+    font: 400 15px var(--font-ui);
+    color: var(--ink-70);
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 960px) {
+    .poemInner,
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .poemArt figure:first-child {
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .hero {
+        padding: 56px var(--page-pad) 40px;
+    }
+
+    .heroName {
+        font-size: 54px;
+    }
+
+    .heroLede {
+        font-size: 17px;
+    }
+
+    .poemBody {
+        font-size: 20px;
+    }
+
+    .poemArt figure {
+        height: 200px;
+    }
+
+    .sectionTitle {
+        font-size: 24px;
+    }
+
+    .stripItem {
+        flex-basis: 180px;
+    }
+
+    .stripFrame {
+        height: 230px;
+    }
+
+    .bioInner {
+        gap: 28px;
+    }
+}

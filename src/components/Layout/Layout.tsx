@@ -7,24 +7,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className={styles.app}>
             <Header />
-            <main>{children}</main>
+            <main className={styles.main}>{children}</main>
             <footer className={styles.footer}>
-                <p>
-                    <strong>Hola, soy Shirley Madero</strong>
-                </p>
-                <p>
-                    Hacé tu consulta al{" "}
-                    <a
-                        href={`https://wa.me/+59892904603`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        +598 92 904 603
-                    </a>
-                </p>
-                <p>
-                    <i>© 2023</i>
-                </p>
+                <div className={styles.wordmark}>Shirley Madero</div>
+                <div className={styles.year}>© 2023</div>
             </footer>
             <Analytics />
         </div>

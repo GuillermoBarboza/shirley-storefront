@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Galeria from "./pages/Galeria";
 import Home from "./pages/Home";
+import Experiencias from "./pages/Experiencias";
 import VirtualGallery from "./pages/VirtualGallery";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/galeria" element={<Galeria />} />
+                <Route path="/experiencias" element={<Experiencias />} />
                 <Route path="/virtual-gallery" element={<VirtualGallery />} />
             </Routes>
         </Router>

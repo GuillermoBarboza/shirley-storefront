@@ -1,76 +1,90 @@
-.artworkListContainer {
-  padding: 10px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    min-width: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.artworkListContainer h2 {
-  margin: 0;
-  font-size: 4rem;
+.loadingLabel {
+    text-align: center;
+    padding-bottom: 32px;
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--gold-deep);
 }
 
-.artworkListContainer ul {
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+.skeletonTile {
+    min-width: 0;
 }
 
-.artworkItem {
-  cursor: pointer;
-  margin-bottom: 20px;
-  background-color: #f5f5f524;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.skeletonFrame {
+    width: 100%;
+    height: 250px;
 }
 
-.artworkItem img {
-  height: auto;
-  width: 100%;
-  object-fit: contain;
-  margin: auto;
+.skeletonLine {
+    height: 12px;
+    width: 70%;
+    background: #efe6d2;
+    margin-top: 12px;
 }
 
-.artworkItemContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: left;
+.moreGrid {
+    margin-top: 24px;
 }
 
-.artworkItemTitle {
-  margin-bottom: 10px;
+.sentinel {
+    height: 1px;
 }
 
-.artworkItemArtist {
-  margin-bottom: 10px;
+.shownLabel {
+    text-align: center;
+    margin-top: 32px;
+    padding-bottom: 8px;
+    font: 400 12px var(--font-ui);
+    color: var(--ink-45);
 }
 
-.artworkItemDescription {
-  margin-bottom: 10px;
+/* Connection failure — previously this rendered as a silent empty grid. */
+.errorPanel {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 120px var(--page-pad);
+    text-align: center;
 }
 
-.artworkItemContact {
-  margin-top: 10px;
-  font-style: italic;
+.errorTitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 24px;
+    margin-bottom: 12px;
 }
 
-.closeButton {
-  margin-top: 10px;
-  background-color: #f5f5f5;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
+.errorBody {
+    font: 400 14px var(--font-ui);
+    color: var(--ink-65);
+    margin-bottom: 28px;
 }
 
-.loading {
-  font-size: large;
+@media screen and (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .skeletonFrame {
+        height: 210px;
+    }
 }
 
-/* Media query for smaller screens */
-@media (max-width: 568px) {
-  .artworkListContainer ul {
-    display: flex;
-    flex-direction: column;
-  }
+@media screen and (max-width: 860px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .skeletonFrame {
+        height: 190px;
+    }
 }

@@ -1,0 +1,90 @@
+.page {
+    background: var(--night);
+    color: var(--cream);
+    padding: 80px var(--page-pad) 64px;
+    overflow: hidden;
+}
+
+.intro {
+    max-width: 720px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.eyebrow {
+    font: 600 12px var(--font-ui);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+}
+
+.title {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 34px;
+    margin: 12px 0 0;
+    font-weight: 400;
+}
+
+.lede {
+    margin-top: 14px;
+    font: 400 15px var(--font-ui);
+    color: rgba(247, 240, 226, 0.65);
+    line-height: 1.6;
+}
+
+.stage {
+    max-width: 900px;
+    margin: 0 auto;
+    height: 70vh;
+    min-height: 380px;
+    background: #2b241d;
+    position: relative;
+}
+
+.plinth {
+    max-width: 900px;
+    margin: 0 auto;
+    height: 70px;
+    background: linear-gradient(#3a2f24, var(--night));
+}
+
+.state {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(247, 240, 226, 0.7);
+}
+
+.hint {
+    text-align: center;
+    margin-top: 20px;
+    font: 400 12px var(--font-ui);
+    color: rgba(247, 240, 226, 0.45);
+}
+
+.actions {
+    text-align: center;
+    margin-top: 48px;
+}
+
+@media screen and (max-width: 860px) {
+    .page {
+        padding: 48px var(--page-pad) 40px;
+    }
+
+    .title {
+        font-size: 26px;
+    }
+
+    .stage {
+        height: 55vh;
+    }
+}

@@ -1,50 +1,69 @@
 .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.3rem 0;
-    position: fixed;
+    position: sticky;
     top: 0;
-    width: 100%;
-    background: #a77c44;
-    border-left-color: #ddc10c;
-    border-bottom-color: #c3aa0a;
-    border-right-color: #b39c09;
-    border-style: inset;
-    border-width: 12px;
-    border-top-style: none;
-    box-sizing: border-box;
-    z-index: 10;
-    transform: translateY(0); /* Set the initial transform */
-    will-change: transform; /* Hint for performance optimization */
+    z-index: 40;
+    background: var(--cream);
+    border-bottom: 1px solid var(--ink-12);
+}
+
+.inner {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px var(--page-pad);
+}
+
+.wordmark {
+    font-family: var(--font-script);
+    font-size: 26px;
+    color: var(--ink);
+    line-height: 1.1;
+}
+
+.wordmark:hover {
+    color: var(--ink);
 }
 
 .nav {
-    margin: auto;
-}
-
-.nav ul {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    gap: 32px;
+    font: 600 12px var(--font-ui);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
 }
 
-.nav ul li {
-    margin: 0 1rem;
-    padding: 0.6rem;
+.link {
+    color: var(--ink);
+    white-space: nowrap;
 }
 
-@media screen and (max-width: 856px) {
-    .header {
-        top: auto;
-        bottom: 0; /* Position at bottom on mobile */
-        border-bottom: none;
-        border-top: 12px;
-        border-top-style: inset;
-        border-top-color: #cab00b;
+.link:hover {
+    color: var(--gold-deep);
+}
+
+.active {
+    color: var(--gold-deep);
+}
+
+@media screen and (max-width: 860px) {
+    .inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .wordmark {
+        font-size: 22px;
+    }
+
+    .nav {
+        gap: 20px;
+        font-size: 11px;
+        flex-wrap: wrap;
     }
 }

@@ -1,26 +1,22 @@
 // shirley-storefront/src/pages/Galeria.tsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Layout } from "../components/Layout/Layout";
 import ArtworkList from "../components/ArtworkList/ArtworkList";
+import styles from "./Galeria.module.css";
 
 const Galeria: React.FC = () => {
+    const [count, setCount] = useState<number | null>(null);
+
     return (
         <Layout>
-            <div className="banner">
-                <div>
-                    <img src="./shirley.jpeg" alt="Shirley con su caballete" />
-
-                    <h1>Las mujeres que me habitan</h1>
-                    <p>
-                        Yo no estimo tesoros ni riquezas <br />
-                        ....Yo estimo hermosura
-                        <br /> ...rostros de Santa azul y tostada frente. <br />
-                        Porque entre cien mundanas he de encontrar tu cara.
-                    </p>
+            <div className={styles.banner}>
+                <h1 className={styles.title}>Obras de arte</h1>
+                <div className={styles.count}>
+                    {count === null ? " " : `${count} piezas`}
                 </div>
             </div>
-            <div className="container">
-                <ArtworkList />
+            <div className={styles.body}>
+                <ArtworkList onCountChange={setCount} />
             </div>
         </Layout>
     );
