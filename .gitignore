@@ -22,3 +22,15 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Vercel CLI local state
+.vercel
+
+# Agentic / AI instruction files never ship. README.md is the only doc in this repo.
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+.claude/
+.cursor/
+.cursorrules
+.github/copilot-instructions.md

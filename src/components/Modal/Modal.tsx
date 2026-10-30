@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import Styles from "./Modal.module.css";
-//@ts-ignore
 import useKeypress from "react-use-keypress";
 import { useSwipeable } from "react-swipeable";
 import WhatsAppLink from "../WhatsappLink/WhatsappLink";
@@ -62,8 +61,7 @@ const Modal: React.FC<ModalProps> = ({
             } else if (event.key === "Escape") {
                 handleCloseInfo();
             }
-        },
-        [handleNextItem, handlePrevItem, handleCloseInfo]
+        }
     );
 
     const handlers = useSwipeable({

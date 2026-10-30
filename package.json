@@ -44,6 +44,14 @@
             "react-app/jest"
         ]
     },
+    "jest": {
+        "moduleNameMapper": {
+            "^react-router-dom$": "<rootDir>/node_modules/react-router-dom/dist/index.js",
+            "^react-router/dom$": "<rootDir>/node_modules/react-router/dist/production/dom-export.js",
+            "^react-router$": "<rootDir>/node_modules/react-router/dist/production/index.js",
+            "^@vercel/analytics/react$": "<rootDir>/node_modules/@vercel/analytics/dist/react/index.cjs"
+        }
+    },
     "browserslist": {
         "production": [
             ">0.2%",
