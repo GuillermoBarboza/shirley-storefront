@@ -1,9 +1,0 @@
-/* Shown only while the virtual-gallery chunk downloads. */
-.fallback {
-    padding: 120px var(--page-pad);
-    text-align: center;
-    font: 600 12px var(--font-ui);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold-deep);
-}

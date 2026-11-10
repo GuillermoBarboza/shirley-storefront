@@ -6,8 +6,6 @@
         "node": "24.x"
     },
     "dependencies": {
-        "@react-three/drei": "^8.20.2",
-        "@react-three/fiber": "^8.18.0",
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
@@ -17,6 +15,7 @@
         "@types/react-dom": "^18.2.7",
         "@vercel/analytics": "^1.0.2",
         "axios": "^1.4.0",
+        "qrcode": "^1.5.4",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^7.0.1",
@@ -30,6 +29,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
+        "@types/qrcode": "^1.5.5",
         "@types/three": "^0.181.0"
     },
     "scripts": {

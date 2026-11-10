@@ -3,7 +3,7 @@ import axios from "axios";
 import styles from "./Artwork.module.css";
 import Modal from "../Modal/Modal";
 import ArtworkElem from "../Artwork/Artwork";
-import { convertToUrl } from "../../utils/utils";
+import { findDeepLinkIndex, wantsWall } from "../../wall/link";
 import { Artwork } from "../../types/artwork";
 
 /** Two rows of the 4-up desktop grid. */
@@ -77,21 +77,15 @@ const ArtworkList: React.FC<ArtworkListProps> = ({ onCountChange }) => {
 
                 // A deep link may point at an artwork past the first window.
                 // Widen the window up front so the scroll target actually exists.
-                const hash = decodeURIComponent(
-                    window.location.hash.substring(1)
+                const index = findDeepLinkIndex(
+                    list,
+                    window.location.search,
+                    decodeURIComponent(window.location.hash.substring(1))
                 );
-                if (hash) {
-                    const index = list.findIndex(
-                        (a) => convertToUrl(a.title || "") === hash
+                if (index >= 0) {
+                    setVisibleCount(
+                        Math.max(PAGE, Math.ceil((index + 1) / PAGE) * PAGE)
                     );
-                    if (index >= 0) {
-                        setVisibleCount(
-                            Math.max(
-                                PAGE,
-                                Math.ceil((index + 1) / PAGE) * PAGE
-                            )
-                        );
-                    }
                 }
                 setStatus("ready");
             })
@@ -108,11 +102,10 @@ const ArtworkList: React.FC<ArtworkListProps> = ({ onCountChange }) => {
     // Scroll a deep-linked artwork into view once its tile has rendered.
     useEffect(() => {
         if (status !== "ready" || didScrollToHash.current) return;
-        const hash = decodeURIComponent(window.location.hash.substring(1));
-        if (!hash) return;
-
-        const index = artworks.findIndex(
-            (a) => convertToUrl(a.title || "") === hash
+        const index = findDeepLinkIndex(
+            artworks,
+            window.location.search,
+            decodeURIComponent(window.location.hash.substring(1))
         );
         if (index < 0) return;
 
@@ -122,6 +115,8 @@ const ArtworkList: React.FC<ArtworkListProps> = ({ onCountChange }) => {
         didScrollToHash.current = true;
         el.scrollIntoView({ behavior: "smooth", block: "center" });
         el.focus({ preventScroll: true });
+        // A "Ver en tu pared" link (QR / copied) opens the painting itself.
+        if (wantsWall(window.location.search)) setActiveItemIndex(index);
     }, [status, artworks, visibleCount]);
 
     const loadMore = useCallback(() => {

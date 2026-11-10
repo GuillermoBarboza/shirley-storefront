@@ -3,6 +3,8 @@ import Styles from "./Modal.module.css";
 import useKeypress from "react-use-keypress";
 import { useSwipeable } from "react-swipeable";
 import WhatsAppLink from "../WhatsappLink/WhatsappLink";
+import WallEntry from "../WallEntry/WallEntry";
+import { wantsWall } from "../../wall/link";
 import {
     Artwork,
     titleOf,
@@ -139,6 +141,11 @@ const Modal: React.FC<ModalProps> = ({
                             )}
                             <div>Estado: {statusLabel(activeItem)}</div>
                         </div>
+
+                        <WallEntry
+                            artwork={activeItem}
+                            highlight={wantsWall(window.location.search)}
+                        />
 
                         <WhatsAppLink
                             title={title}

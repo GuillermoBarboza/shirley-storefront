@@ -6,7 +6,6 @@ const links = [
     { to: "/", label: "Inicio", end: true },
     { to: "/galeria", label: "Galería" },
     { to: "/experiencias", label: "Experiencias" },
-    { to: "/virtual-gallery", label: "Sala Virtual" },
 ];
 
 export const Header = () => {

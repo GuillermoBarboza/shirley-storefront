@@ -33,14 +33,20 @@ describe("App shell", () => {
 
     it("renders every top-level nav destination", async () => {
         render(<App />);
-        for (const label of [
-            "Inicio",
-            "Galería",
-            "Experiencias",
-            "Sala Virtual",
-        ]) {
+        for (const label of ["Inicio", "Galería", "Experiencias"]) {
             expect(screen.getByText(label)).toBeInTheDocument();
         }
+        // "Ver en tu pared" replaced the 3D room.
+        expect(screen.queryByText("Sala Virtual")).toBeNull();
+        await settleMountEffects();
+    });
+
+    it("redirects /virtual-gallery to /galeria", async () => {
+        window.history.pushState({}, "", "/virtual-gallery");
+        render(<App />);
+        expect(await screen.findByText("Obras de arte")).toBeInTheDocument();
+        expect(window.location.pathname).toBe("/galeria");
+        window.history.pushState({}, "", "/");
         await settleMountEffects();
     });
 });
