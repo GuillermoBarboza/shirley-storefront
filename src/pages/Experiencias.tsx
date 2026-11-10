@@ -3,52 +3,30 @@ import { Layout } from "../components/Layout/Layout";
 import styles from "./Experiencias.module.css";
 import PhotoSlot from "../components/PhotoSlot/PhotoSlot";
 import { useContactPhone, waLink } from "../hooks/useContactPhone";
-
-type ExperienceType = "mate" | "murales";
-
-const LABELS: Record<ExperienceType, string> = {
-    mate: "Ritual del Mate",
-    murales: "Recorrido de Murales",
-};
-
-const MATE_STEPS = [
-    "1. Origen y memoria del mate",
-    "2. Clasificación de yerbas",
-    "3. Leyenda y símbolo",
-    "4. El ritual",
-    "5. Momento de creación",
-    "6. Cierre compartido",
-];
-
-interface ReservationForm {
-    nombre: string;
-    fecha: string;
-    personas: string;
-    mensaje: string;
-}
-
-const EMPTY_FORM: ReservationForm = {
-    nombre: "",
-    fecha: "",
-    personas: "",
-    mensaje: "",
-};
+import { useExperiences } from "../hooks/useExperiences";
+import { Experience } from "../types/experience";
+import {
+    ReservationForm,
+    EMPTY_FORM,
+    buildReservationMessage,
+} from "../utils/reservation";
 
 const Experiencias: React.FC = () => {
-    const [openType, setOpenType] = useState<ExperienceType | null>(null);
+    const { status, page } = useExperiences();
+    const [booking, setBooking] = useState<Experience | null>(null);
     const [form, setForm] = useState<ReservationForm>(EMPTY_FORM);
     const phone = useContactPhone();
 
-    const open = (type: ExperienceType) => {
+    const open = (experience: Experience) => {
         setForm(EMPTY_FORM);
-        setOpenType(type);
+        setBooking(experience);
     };
 
-    const close = () => setOpenType(null);
+    const close = () => setBooking(null);
 
     // Lock the page behind the dialog and wire Escape to close it.
     useEffect(() => {
-        if (!openType) return;
+        if (!booking) return;
         document.body.style.overflow = "hidden";
         const onKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") close();
@@ -58,7 +36,7 @@ const Experiencias: React.FC = () => {
             document.body.style.overflow = "unset";
             window.removeEventListener("keydown", onKey);
         };
-    }, [openType]);
+    }, [booking]);
 
     const set = (key: keyof ReservationForm) => (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -66,104 +44,134 @@ const Experiencias: React.FC = () => {
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!openType) return;
-
-        const label =
-            openType === "mate"
-                ? "el Ritual del Mate"
-                : "el Recorrido de Murales";
-
-        let msg = `¡Hola Shirley! Quiero reservar ${label}.`;
-        if (form.nombre) msg += ` Mi nombre es ${form.nombre}.`;
-        if (form.personas) msg += ` Somos ${form.personas} persona(s).`;
-        if (form.fecha) msg += ` Fecha preferida: ${form.fecha}.`;
-        if (form.mensaje) msg += ` ${form.mensaje}`;
-
-        window.open(waLink(phone, msg), "_blank", "noopener,noreferrer");
+        if (!booking) return;
+        window.open(
+            waLink(phone, buildReservationMessage(booking.title, form)),
+            "_blank",
+            "noopener,noreferrer"
+        );
         close();
+    };
+
+    const experiences = page?.experiences ?? [];
+
+    const renderSection = (experience: Experience, index: number) => {
+        const reversed = index % 2 === 1;
+        const last = index === experiences.length - 1;
+        const olive = experience.accent === "olive";
+
+        const photo = (
+            <PhotoSlot
+                className={styles.photo}
+                src={experience.photoWebUrl || experience.photoUrl || undefined}
+                alt={experience.title}
+                placeholder={`foto de ${experience.title}`}
+            />
+        );
+
+        const copy = (
+            <div className={styles.copy}>
+                {experience.kicker.trim() && (
+                    <div
+                        className={`${styles.kicker} ${
+                            olive ? styles.kickerOlive : styles.kickerGold
+                        }`}
+                    >
+                        {experience.kicker}
+                    </div>
+                )}
+                <h2 className={styles.title}>{experience.title}</h2>
+                {experience.quote.trim() && (
+                    <p className={styles.quote}>
+                        «{experience.quote.trim()}»
+                    </p>
+                )}
+                {experience.place.trim() && (
+                    <div className={styles.place}>{experience.place}</div>
+                )}
+                {experience.description.trim() && (
+                    <p className={styles.body}>{experience.description}</p>
+                )}
+                {experience.steps.length > 0 && (
+                    <ul className={styles.steps}>
+                        {experience.steps.map((step, i) => (
+                            <li key={i}>{step}</li>
+                        ))}
+                    </ul>
+                )}
+                {experience.note.trim() && (
+                    <p className={styles.note}>{experience.note}</p>
+                )}
+                <button
+                    className={olive ? "btn btn--olive" : "btn"}
+                    onClick={() => open(experience)}
+                >
+                    Reservar mi lugar
+                </button>
+            </div>
+        );
+
+        // Odd sections keep the markup the hardcoded murales section had:
+        // copy first in the DOM plus `reverse`, which the CSS reorders.
+        return (
+            <section
+                key={experience._id ?? index}
+                className={[
+                    styles.section,
+                    last ? styles.sectionLast : "",
+                    reversed ? styles.reverse : "",
+                ]
+                    .filter(Boolean)
+                    .join(" ")}
+            >
+                {reversed ? (
+                    <>
+                        {copy}
+                        {photo}
+                    </>
+                ) : (
+                    <>
+                        {photo}
+                        {copy}
+                    </>
+                )}
+            </section>
+        );
     };
 
     return (
         <Layout>
-            <section className={styles.intro}>
-                <div className={styles.eyebrow}>Además de la pintura</div>
-                <h1 className={styles.pageTitle}>Experiencias</h1>
-                <p className={styles.lede}>
-                    Dos maneras de conocer a Shirley más allá del lienzo: un
-                    ritual sensorial con mate, y recorridos a pie por las
-                    historias y murales escondidos de Montevideo.
-                </p>
-            </section>
-
-            <section className={styles.section}>
-                <PhotoSlot
-                    className={styles.photo}
-                    src="./experiencia-mate.jpg"
-                    alt="Ritual del Mate"
-                    placeholder="foto del ritual del mate"
-                />
-                <div className={styles.copy}>
-                    <div className={`${styles.kicker} ${styles.kickerOlive}`}>
-                        Experiencia sensorial
+            {status === "error" ? (
+                <div className={styles.errorPanel}>
+                    <div className={styles.errorTitle}>
+                        No pudimos cargar las experiencias.
                     </div>
-                    <h2 className={styles.title}>Ritual del Mate</h2>
-                    <p className={styles.quote}>
-                        «El mate no es una bebida, es una forma de estar en el
-                        mundo.»
-                    </p>
-                    <div className={styles.place}>Ciudad Vieja, Montevideo</div>
-                    <ul className={styles.steps}>
-                        {MATE_STEPS.map((step) => (
-                            <li key={step}>{step}</li>
-                        ))}
-                    </ul>
-                    <p className={styles.note}>
-                        Incluye degustación de distintas yerbas, bizcochos y uso
-                        de mates seleccionados.
-                    </p>
-                    <button
-                        className="btn btn--olive"
-                        onClick={() => open("mate")}
-                    >
-                        Reservar mi lugar
-                    </button>
+                    <div className={styles.errorBody}>
+                        Hubo un problema de conexión con el servidor. Intentá
+                        de nuevo en unos minutos.
+                    </div>
                 </div>
-            </section>
+            ) : status === "loading" ? (
+                <div className={styles.loading}>Cargando…</div>
+            ) : (
+                page && (
+                    <>
+                        <section className={styles.intro}>
+                            <div className={styles.eyebrow}>
+                                {page.intro.eyebrow}
+                            </div>
+                            <h1 className={styles.pageTitle}>
+                                {page.intro.title}
+                            </h1>
+                            <p className={styles.lede}>{page.intro.lede}</p>
+                        </section>
 
-            <section
-                className={`${styles.section} ${styles.sectionLast} ${styles.reverse}`}
-            >
-                <div className={styles.copy}>
-                    <div className={`${styles.kicker} ${styles.kickerGold}`}>
-                        Recorrido guiado
-                    </div>
-                    <h2 className={styles.title}>Recorridos Murales</h2>
-                    <p className={styles.quote}>
-                        «Amo mi ciudad y puedo mostrarla en todo su esplendor —
-                        sobre todo sus historias y los murales escondidos en los
-                        barrios.»
-                    </p>
-                    <div className={styles.place}>
-                        A pie, por los barrios de Montevideo
-                    </div>
-                    <p className={styles.body}>
-                        Un paseo caminando entre relatos de barrio, arquitectura
-                        y murales, con paradas para fotos y un cierre
-                        compartiendo unos mates.
-                    </p>
-                    <button className="btn" onClick={() => open("murales")}>
-                        Reservar mi lugar
-                    </button>
-                </div>
-                <PhotoSlot
-                    className={styles.photo}
-                    src="./experiencia-murales.jpg"
-                    alt="Recorrido de murales por Montevideo"
-                    placeholder="foto del recorrido de murales"
-                />
-            </section>
+                        {experiences.map(renderSection)}
+                    </>
+                )
+            )}
 
-            {openType && (
+            {booking && (
                 <div
                     className={styles.overlay}
                     onClick={close}
@@ -174,7 +182,7 @@ const Experiencias: React.FC = () => {
                         onClick={(e) => e.stopPropagation()}
                         role="dialog"
                         aria-modal="true"
-                        aria-label={`Reservar ${LABELS[openType]}`}
+                        aria-label={`Reservar ${booking.title}`}
                     >
                         <button
                             className={styles.close}
@@ -185,7 +193,7 @@ const Experiencias: React.FC = () => {
                         </button>
                         <h2 className={styles.dialogTitle}>Reservar</h2>
                         <div className={styles.dialogSub}>
-                            {LABELS[openType]}
+                            {booking.title}
                         </div>
 
                         <form onSubmit={submit}>

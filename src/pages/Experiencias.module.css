@@ -272,3 +272,32 @@
         padding: 28px 22px;
     }
 }
+
+/* Loading and API-failure states, matching /galeria's. */
+.loading {
+    padding: 120px var(--page-pad);
+    text-align: center;
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--gold-deep);
+}
+
+.errorPanel {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 120px var(--page-pad);
+    text-align: center;
+}
+
+.errorTitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.errorBody {
+    font: 400 14px var(--font-ui);
+    color: var(--ink-65);
+}
