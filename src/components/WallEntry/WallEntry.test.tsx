@@ -5,8 +5,10 @@ import { useWallMode } from "../../hooks/useWallMode";
 import { wallLink } from "../../wall/link";
 import { Artwork } from "../../types/artwork";
 import { startWallView } from "../WallView/WallView";
+import { useWallViewEnabled } from "../../hooks/useContactPhone";
 
 jest.mock("../../hooks/useWallMode", () => ({ useWallMode: jest.fn() }));
+jest.mock("../../hooks/useContactPhone", () => ({ useWallViewEnabled: jest.fn() }));
 jest.mock("qrcode", () => ({
     __esModule: true,
     default: { toDataURL: jest.fn() },
@@ -25,6 +27,7 @@ const ARTWORK = {
 const mode = (m: string | null) => (useWallMode as jest.Mock).mockReturnValue(m);
 
 beforeEach(async () => {
+    (useWallViewEnabled as jest.Mock).mockReturnValue(true);
     const qr = await import("qrcode");
     (qr.toDataURL as jest.Mock).mockResolvedValue("data:image/png;base64,QR");
     ((qr as any).default.toDataURL as jest.Mock).mockResolvedValue("data:image/png;base64,QR");
@@ -33,6 +36,23 @@ beforeEach(async () => {
 const settle = () => act(async () => undefined);
 
 describe("WallEntry", () => {
+    it.each(["ar", "desktop", "phone-no-ar", "iphone"])(
+        "renders nothing on %s when the feature is switched off",
+        (m) => {
+            mode(m);
+            (useWallViewEnabled as jest.Mock).mockReturnValue(false);
+            const { container } = render(<WallEntry artwork={ARTWORK} />);
+            expect(container).toBeEmptyDOMElement();
+        }
+    );
+
+    it("renders nothing until the switch is known", () => {
+        mode("ar");
+        (useWallViewEnabled as jest.Mock).mockReturnValue(null);
+        const { container } = render(<WallEntry artwork={ARTWORK} />);
+        expect(container).toBeEmptyDOMElement();
+    });
+
     it("renders nothing while checking", () => {
         mode(null);
         const { container } = render(<WallEntry artwork={ARTWORK} />);

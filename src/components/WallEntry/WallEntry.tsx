@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Artwork } from "../../types/artwork";
 import { useWallMode } from "../../hooks/useWallMode";
+import { useWallViewEnabled } from "../../hooks/useContactPhone";
 import { wallLink } from "../../wall/link";
 import { parseSize } from "../../wall/size";
 import styles from "./WallEntry.module.css";
@@ -20,6 +21,7 @@ interface WallEntryProps {
  */
 const WallEntry: React.FC<WallEntryProps> = ({ artwork, highlight }) => {
     const mode = useWallMode();
+    const enabled = useWallViewEnabled();
     const [qr, setQr] = useState("");
     const [copied, setCopied] = useState(false);
     const [opening, setOpening] = useState(false);
@@ -31,17 +33,17 @@ const WallEntry: React.FC<WallEntryProps> = ({ artwork, highlight }) => {
     // Fetch the AR chunk as soon as we know it will be used, so the tap can
     // start the camera straight away (browsers only allow it right after a tap).
     useEffect(() => {
-        if (mode === "ar" && !wallView.current) {
+        if (mode === "ar" && enabled && !wallView.current) {
             // A failed prefetch (flaky network) must not stick: clear it so the tap re-imports.
             wallView.current = import("../WallView/WallView");
             wallView.current.catch(() => {
                 wallView.current = null;
             });
         }
-    }, [mode]);
+    }, [mode, enabled]);
 
     useEffect(() => {
-        if (mode !== "desktop") return;
+        if (mode !== "desktop" || !enabled) return;
         let alive = true;
         import("qrcode")
             .then((qrcode) => (qrcode.default ?? qrcode).toDataURL(link, { margin: 1, width: 320 }))
@@ -50,11 +52,12 @@ const WallEntry: React.FC<WallEntryProps> = ({ artwork, highlight }) => {
         return () => {
             alive = false;
         };
-    }, [mode, link]);
+    }, [mode, enabled, link]);
 
     useEffect(() => setCopied(false), [link]);
 
-    if (!mode) return null;
+    // Switched off in the admin (Contacto tab), or not known yet.
+    if (!mode || enabled !== true) return null;
 
     const sizeNote = approximate && mode !== "iphone" && (
         <span className={styles.approx}>Tamaño aproximado</span>

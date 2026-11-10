@@ -1,22 +1,31 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-/**
- * The contact number is a singleton document that changes about never, but it is
- * needed by the modal, the home CTA and both reservation flows. Cache the request
- * at module level so a session makes one call rather than one per mount.
- */
-let cached: Promise<string> | null = null;
+interface ContactInfo {
+    phoneNumber: string;
+    /** Admin switch for "Ver en tu pared"; on unless explicitly turned off. */
+    wallViewEnabled: boolean;
+}
 
-const fetchPhone = (): Promise<string> => {
+/**
+ * The contact-info singleton changes about never, but it is needed by the
+ * modal, the home CTA and both reservation flows. Cache the request at module
+ * level so a session makes one call rather than one per mount.
+ */
+let cached: Promise<ContactInfo> | null = null;
+
+const fetchContactInfo = (): Promise<ContactInfo> => {
     if (!cached) {
         cached = axios
             .get(process.env.REACT_APP_API_CONTACT_INFO_ENDPOINT + "/")
-            .then((res) => res.data?.phoneNumber ?? "")
+            .then((res) => ({
+                phoneNumber: res.data?.phoneNumber ?? "",
+                wallViewEnabled: res.data?.wallViewEnabled !== false,
+            }))
             .catch((error) => {
                 console.error("Error fetching phone number:", error);
                 cached = null; // let a later mount retry
-                return "";
+                return { phoneNumber: "", wallViewEnabled: true };
             });
     }
     return cached;
@@ -34,21 +43,34 @@ export const formatPhone = (phone: string): string => {
     return phone;
 };
 
-export const useContactPhone = (): string => {
-    const [phone, setPhone] = useState("");
+const useContactInfo = <T,>(pick: (info: ContactInfo) => T, initial: T): T => {
+    const [value, setValue] = useState<T>(initial);
 
     useEffect(() => {
         let alive = true;
-        fetchPhone().then((p) => {
-            if (alive) setPhone(p);
+        fetchContactInfo().then((info) => {
+            if (alive) setValue(pick(info));
         });
         return () => {
             alive = false;
         };
+        // `pick` is a fixed field reader per hook below.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return phone;
+    return value;
 };
+
+export const useContactPhone = (): string =>
+    useContactInfo((info) => info.phoneNumber, "");
+
+/**
+ * Whether "Ver en tu pared" is switched on in the admin; null until known so
+ * the entry never flashes in and out. A failed request counts as on — the
+ * feature itself doesn't need the API.
+ */
+export const useWallViewEnabled = (): boolean | null =>
+    useContactInfo<boolean | null>((info) => info.wallViewEnabled, null);
 
 /** Builds a wa.me deep link with a prewritten message. */
 export const waLink = (phone: string, message: string): string =>
