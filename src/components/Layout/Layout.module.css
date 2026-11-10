@@ -1,0 +1,39 @@
+.app {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+}
+
+.footer {
+    background: var(--brown-deep);
+    color: rgba(247, 240, 226, 0.6);
+    padding: 40px var(--page-pad);
+    text-align: center;
+    font: 400 13px var(--font-ui);
+}
+
+.wordmark {
+    font-family: var(--font-script);
+    font-size: 21px;
+    color: var(--cream);
+    margin-bottom: 10px;
+}
+
+.footer a {
+    color: var(--gold-light);
+}
+
+.footer a:hover {
+    color: #fff;
+}
+
+.year {
+    margin-top: 6px;
+}

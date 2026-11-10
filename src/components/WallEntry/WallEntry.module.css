@@ -1,0 +1,44 @@
+.entry {
+    margin: 4px 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+}
+
+.highlight {
+    outline: 1px solid var(--gold);
+    outline-offset: 6px;
+}
+
+.note {
+    margin: 0;
+    font: 400 13px var(--font-ui);
+    color: var(--ink-65);
+    line-height: 1.5;
+}
+
+.approx {
+    font: 600 11px var(--font-ui);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+}
+
+.small {
+    padding: 10px 16px;
+}
+
+.desktop {
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.qr {
+    width: 96px;
+    height: 96px;
+    flex: none;
+    border: 1px solid var(--border);
+    background: #fff;
+    image-rendering: pixelated;
+}

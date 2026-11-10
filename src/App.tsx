@@ -1,50 +1,34 @@
+// shirley-storefront/src/App.tsx
 import React from "react";
-import { Analytics } from "@vercel/analytics/react";
-import "./App.css";
-import ArtworkList from "./components/ArtworkList/ArtworkList";
-import LandingCanvas from "./components/LandingCanvas/LandingCanvas";
+import {
+    BrowserRouter as Router,
+    Navigate,
+    Route,
+    Routes,
+} from "react-router-dom";
+import Galeria from "./pages/Galeria";
+import Home from "./pages/Home";
+import Experiencias from "./pages/Experiencias";
 
+/**
+ * "Ver en tu pared" (in the painting modal) replaced the Sala Virtual 3D room;
+ * old links to the room land on the gallery. three.js now loads only with the
+ * lazy WallView chunk, on phones that can run AR.
+ */
 function App() {
-  return (
-    <div className="App">
-      <LandingCanvas></LandingCanvas>
-      <div className="banner">
-        <div>
-          <img src="./shirley.jpeg" alt="Shirley con su caballete" />
-
-          <h1>Las mujeres que me habitan</h1>
-          <p>
-            Yo no estimo tesoros ni riquezas <br />
-            ....Yo estimo hermosura
-            <br /> ...rostros de Santa azul y tostada frente. <br />
-            Porque entre cien mundanas he de encontrar tu cara.
-          </p>
-        </div>
-      </div>
-      <div className="container">
-        <ArtworkList />
-      </div>
-      <footer>
-        <p>
-          <strong>Hola, soy Shirley Madero</strong>
-        </p>
-        <p>
-          Hacé tu consulta al{" "}
-          <a
-            href={`https://wa.me/+59892904603`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            +598 92 904 603
-          </a>
-        </p>
-        <p>
-          <i>© 2023</i>
-        </p>
-      </footer>
-      <Analytics />
-    </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/galeria" element={<Galeria />} />
+                <Route path="/experiencias" element={<Experiencias />} />
+                <Route
+                    path="/virtual-gallery"
+                    element={<Navigate to="/galeria" replace />}
+                />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

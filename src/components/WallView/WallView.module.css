@@ -1,0 +1,84 @@
+/* AR overlay (WebXR dom-overlay). Square like the rest of the site. */
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+    color: #fff;
+    font: 400 15px var(--font-ui);
+}
+
+.hint {
+    position: absolute;
+    top: 20px;
+    left: 16px;
+    right: 72px;
+    background: rgba(31, 27, 22, 0.6);
+    padding: 10px 14px;
+    line-height: 1.4;
+}
+
+.badge {
+    display: inline-block;
+    margin-top: 6px;
+    font: 600 11px var(--font-ui);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+}
+
+.exit {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: rgba(31, 27, 22, 0.6);
+    color: #fff;
+    font-size: 20px;
+    pointer-events: auto;
+}
+
+.aim {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    border: 2px solid #fff;
+}
+
+.lost {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    right: 16px;
+    transform: translateY(-50%);
+    text-align: center;
+    background: rgba(31, 27, 22, 0.65);
+    padding: 14px;
+}
+
+.bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 12px;
+}
+
+.bar button {
+    pointer-events: auto;
+}
+
+.ghost {
+    background: rgba(31, 27, 22, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+}
